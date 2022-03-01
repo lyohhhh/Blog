@@ -1,3 +1,5 @@
+import { TailWind } from "./tailwind";
 export type StoreState = {
-  name: string;
+  info: any;
+  tailwind: TailWind;
 };

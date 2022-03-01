@@ -3,13 +3,15 @@ module.exports = {
     "./index.html",
     "./src/**/*.{vue,js,ts,tsx,jsx}", // 那些文件
   ],
-  darkMode: false, // 暗黑模式
+  darkMode: "class", // 暗黑模式
   content: [],
   theme: {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      textOpacity: ["dark"],
+    },
   },
   plugins: [],
 };
