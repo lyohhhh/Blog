@@ -1,24 +1,25 @@
 import { defineComponent } from "vue";
-
+import List from "@/components/List";
+import { Props } from "@/components/List";
 export default defineComponent({
   setup() {
-    return {};
+    const list: Props[] = [
+      {
+        title: "test1",
+        time: new Date().toLocaleString(),
+        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam molestiae necessitatibus sequi numquam officia sit cum vitae fuga inventore quis eum odit repudiandae ad repellat eaque iusto optio, culpa cupiditate ipsa ea amet est atque? Dolore earum quis animi laboriosam quam nobis veniam, culpa sequi voluptas ducimus, voluptatum, perferendis vel?`,
+        author: "superAdmin",
+      },
+    ];
+    return {
+      list,
+    };
   },
   render() {
     return (
-      <div class="text-black dark:text-white">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, esse
-        error doloribus maiores aperiam veritatis! Tempore itaque, totam ab
-        veniam illo nisi esse architecto soluta nobis natus optio nihil sed
-        minus, consectetur harum sit! Fugit aspernatur adipisci repellendus
-        impedit nesciunt, minima voluptatem voluptatibus doloremque est
-        molestias rem asperiores sint et, odio quam voluptate molestiae ex ab
-        veniam nisi autem nihil tempore inventore quod? Enim, amet nostrum!
-        Nulla, error delectus! Est, tenetur! Aperiam hic eligendi ipsum ea modi
-        odio voluptate alias, nobis quasi. Laudantium ab neque aspernatur
-        cupiditate ducimus temporibus vel vitae eligendi, quisquam
-        necessitatibus ex iure reprehenderit deleniti perspiciatis sunt.
-      </div>
+      <>
+        <List list={this.list}></List>
+      </>
     );
   },
 });
