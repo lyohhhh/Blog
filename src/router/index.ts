@@ -4,12 +4,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/Index",
-    component: () => import("@/layout/Index.vue"),
+    component: () => import("@/layout/Index"),
     children: [
       {
         path: "/Index",
         name: "Index",
-        component: () => import("@/views/Home/Index.vue"),
+        component: () => import("@/views/Home/Index"),
         meta: {
           title: "首页",
         },
