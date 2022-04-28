@@ -27,7 +27,7 @@ request.interceptors.request.use(
     const token = getAccessToken();
 
     if (token) {
-      config.headers!["Authorization"] = `Bearer ${token}`;
+      config.headers && (config.headers["Authorization"] = `Bearer ${token}`);
     }
     return config;
   },
@@ -39,6 +39,6 @@ request.interceptors.response.use((rep: AxiosResponse) => {
     return rep.data;
   }
   return rep;
-});
+}, errFunc);
 
 export default request;

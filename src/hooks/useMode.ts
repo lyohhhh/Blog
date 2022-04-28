@@ -1,4 +1,5 @@
 import { useTailWind } from "@/store/tailwind";
+import { ref } from "vue";
 
 const MODEMAP = {
   0: "light",
@@ -13,12 +14,12 @@ const SETMODE = (mode: number) => {
 
 export const useMode = () => {
   const tailwind = useTailWind();
-  let mode = tailwind.MODE;
-  SETMODE(mode);
+  const mode = ref(tailwind.MODE);
+  SETMODE(mode.value);
   const changeTailWindMode = () => {
-    tailwind.SET_TAILWIND_MODE(mode == 1 ? 0 : 1);
-    mode = tailwind.MODE;
-    SETMODE(mode);
+    tailwind.SET_TAILWIND_MODE(mode.value == 1 ? 0 : 1);
+    mode.value = tailwind.MODE;
+    SETMODE(mode.value);
   };
   return {
     mode,

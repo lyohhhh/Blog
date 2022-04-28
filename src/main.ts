@@ -6,6 +6,8 @@ import router from "./router";
 import "./styles/index.css";
 import "./styles/reset.css";
 
+import Icon from "./components/icon";
+
 const pinia = createPinia();
 const app = createApp(App);
-app.use(pinia).use(router).mount("#app");
+app.use(Icon).use(pinia).use(router).mount("#app");
