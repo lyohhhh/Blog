@@ -1,4 +1,3 @@
-const colors = require("tailwindcss/colors");
 module.exports = {
   purge: [
     "./index.html",
@@ -12,12 +11,6 @@ module.exports = {
       md: "768px",
       lg: "976px",
       xl: "1440px",
-    },
-    colors: {
-      gray: colors.gray,
-      blue: colors.sky,
-      red: colors.rose,
-      pink: colors.fuchsia,
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
@@ -33,10 +26,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      textOpacity: ["dark"],
-      backgroundColor: ["dark"],
-    },
-  },
+  variants: {},
 };

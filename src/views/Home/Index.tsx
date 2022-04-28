@@ -1,16 +1,12 @@
-import { defineComponent } from "vue";
-import List from "@/components/List";
-import { Props } from "@/components/List";
+import { defineComponent, reactive } from "vue";
+import List, { Props } from "@/components/List";
+import { http } from "@/api";
 export default defineComponent({
   setup() {
-    const list: Props[] = [
-      {
-        title: "test1",
-        time: new Date().toLocaleString(),
-        content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam molestiae necessitatibus sequi numquam officia sit cum vitae fuga inventore quis eum odit repudiandae ad repellat eaque iusto optio, culpa cupiditate ipsa ea amet est atque? Dolore earum quis animi laboriosam quam nobis veniam, culpa sequi voluptas ducimus, voluptatum, perferendis vel?`,
-        author: "superAdmin",
-      },
-    ];
+    const list: Props[] = reactive([]);
+    http("/api/article").then((res) => {
+      list.push(...res.data);
+    });
     return {
       list,
     };
@@ -18,7 +14,12 @@ export default defineComponent({
   render() {
     return (
       <>
-        <List list={this.list}></List>
+        <div class="main w-full flex justify-between">
+          <div class="content w-9/12 mr-10 bg-white">
+            <List class="box-border" list={this.list}></List>
+          </div>
+          <div class="slide w-3/12 bg-white rounded-md box-border"></div>
+        </div>
       </>
     );
   },

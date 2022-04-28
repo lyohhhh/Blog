@@ -14,8 +14,7 @@ export default defineComponent({
       <>
         <header
           class={[
-            "shadow-lg fixed left-0 top-0 right-0 h-16 bg-white dark:bg-gray-800 dark:shadow-gray-700",
-            style.header,
+            "shadow-lg fixed left-0 top-0 right-0 h-16 bg-white dark:bg-gray-800 dark:shadow-gray-700 ",
           ]}
         >
           <div class="flex container m-auto h-full items-center justify-between dark:text-gray-100">
@@ -23,7 +22,7 @@ export default defineComponent({
             <div onClick={this.changeTailWindMode}>切换主题</div>
           </div>
         </header>
-        <div class="container m-auto mt-24">
+        <div class="container m-auto pt-24 pb-10">
           <RouterView></RouterView>
         </div>
       </>
