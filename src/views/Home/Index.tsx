@@ -1,24 +1,57 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import List, { Props } from "@/components/list";
 import LoadingMore from "@/components/loading";
 import { http } from "@/api";
+
+interface LoadOpts {
+  loading: boolean;
+  finished: boolean;
+  pageSize: number;
+  pageIndex: number;
+}
+
 export default defineComponent({
   setup() {
     const list: Props[] = reactive([]);
-    http("/api/article").then((res) => {
-      list.push(...res.data);
+    const loadOpts = reactive<LoadOpts>({
+      loading: false,
+      finished: false,
+      pageSize: 10,
+      pageIndex: 1,
     });
+    const fetch = () => {
+      loadOpts.loading = true;
+      http("/api/article")
+        .then((res) => {
+          if (res.code == 200) {
+            list.push(...res.data);
+            loadOpts.pageIndex++;
+            if (loadOpts.pageIndex > 4) {
+              loadOpts.finished = true;
+            }
+          }
+        })
+        .finally(() => {
+          loadOpts.loading = false;
+        });
+    };
 
     return {
       list,
+      fetch,
+      ...toRefs(loadOpts),
     };
   },
   render() {
     return (
       <>
         <div class="main w-full flex justify-between justify-self-start">
-          <div class="content w-full  bg-white dark:bg-gray-900 dark:shadow-gray-700 lg:w-9/12">
-            <LoadingMore loading={true} finished={false}>
+          <div class="content w-full bg-white dark:bg-gray-900 dark:shadow-gray-700 lg:w-9/12">
+            <LoadingMore
+              loading={this.loading}
+              finished={this.finished}
+              onLoad={this.fetch}
+            >
               <List class="box-border" list={this.list}></List>
             </LoadingMore>
           </div>

@@ -9,4 +9,5 @@ export default {
     type: String,
     default: "正在加载中...",
   },
+  onLoad: Function,
 } as const;

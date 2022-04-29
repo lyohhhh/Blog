@@ -2,6 +2,7 @@ import request from "@/utils/http";
 
 interface Request {
   "/api/article": null;
+  "/api/categoty": null;
 }
 
 export function http<T extends keyof Request>(

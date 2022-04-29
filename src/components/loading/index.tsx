@@ -1,19 +1,24 @@
 import { defineComponent, onMounted, ref, renderSlot } from "vue";
 import props from "./props";
-import { List } from "./observer";
+import { ScrollObserver } from "./observer";
 
 export default defineComponent({
   name: "LoadingMore",
   props,
-  setup() {
+  setup(props, { emit }) {
     const obs = ref<HTMLElement>();
 
     onMounted(() => {
-      const observer = new List({
+      const observer = new ScrollObserver({
         root: null,
         obs: obs.value as HTMLElement,
         load() {
-          console.log(1);
+          if (!props.loading) {
+            emit("load");
+          }
+          if (props.finished) {
+            observer.cancelObserver();
+          }
         },
       });
     });

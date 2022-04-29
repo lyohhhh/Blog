@@ -4,7 +4,7 @@ interface Load {
   load: () => void;
 }
 
-export class List<T extends Load> {
+export class ScrollObserver<T extends Load> {
   private observer: IntersectionObserver | undefined;
   public readonly opt: Load;
   constructor(opt: T) {
@@ -15,13 +15,17 @@ export class List<T extends Load> {
   init() {
     this.observer = new IntersectionObserver(this.callback.bind(this), {
       root: this.opt.root,
+      rootMargin: "0px 0px -80px 0px ",
     });
     this.handleObserver();
   }
 
   callback(entries: IntersectionObserverEntry[]) {
-    console.log(entries);
-    this.opt.load();
+    // isIntersecting true -> 出现
+    //                false -> 隐藏
+    if (entries[0].isIntersecting) {
+      this.opt.load();
+    }
   }
 
   handleObserver() {

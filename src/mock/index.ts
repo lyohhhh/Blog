@@ -1,4 +1,5 @@
 import { MockMethod } from "vite-plugin-mock";
+import { category } from "./data";
 export default [
   {
     url: "/api/article",
@@ -16,6 +17,17 @@ export default [
             img: "@image",
           },
         ],
+        message: "success",
+      };
+    },
+  },
+  {
+    url: "/api/category",
+    method: "get",
+    response: () => {
+      return {
+        code: 200,
+        data: category,
         message: "success",
       };
     },
