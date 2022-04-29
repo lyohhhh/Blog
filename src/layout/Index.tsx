@@ -18,7 +18,7 @@ export default defineComponent({
       <>
         <header
           class={[
-            "shadow-lg fixed left-0 top-0 right-0 h-16  bg-white dark:bg-gray-900 dark:shadow-gray-700 md:px-0 md:",
+            "shadow-lg fixed left-0 top-0 right-0 h-16 z-50 bg-white dark:bg-gray-900 dark:shadow-gray-700 md:px-0",
           ]}
         >
           <div class="flex container px-4 m-auto h-full items-center justify-between dark:text-gray-300 md:w-full md:px-0">
