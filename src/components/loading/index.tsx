@@ -28,7 +28,7 @@ export default defineComponent({
   },
 
   render() {
-    const porps = this.$props;
+    const props = this.$props;
     return (
       <>
         {renderSlot(this.$slots, "default")}
@@ -37,7 +37,7 @@ export default defineComponent({
           ref="obs"
           class="leading-loose text-center text-sm py-4 text-gray-600 dark:text-gray-500"
         >
-          {porps.finished ? porps.finishedText : porps.loadingText}
+          {props.finished ? props.finishedText : props.loadingText}
         </div>
       </>
     );
