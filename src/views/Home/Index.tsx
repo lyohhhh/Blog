@@ -46,7 +46,7 @@ export default defineComponent({
     return (
       <>
         <div class="main w-full flex justify-between justify-self-start">
-          <div class="content w-full bg-white dark:bg-gray-900 dark:shadow-gray-700 lg:w-9/12">
+          <div class="content w-full bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 lg:w-9/12">
             <LoadingMore
               loading={this.loading}
               finished={this.finished}
@@ -55,7 +55,7 @@ export default defineComponent({
               <List class="box-border" list={this.list}></List>
             </LoadingMore>
           </div>
-          <div class="slide w-3/12 ml-10 bg-white rounded-md box-border sticky h-128 top-24 dark:bg-gray-900 dark:shadow-gray-700 hidden lg:block"></div>
+          <div class="slide w-3/12 ml-10 bg-white rounded-md box-border sticky h-128 top-24 dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 hidden lg:block"></div>
         </div>
       </>
     );

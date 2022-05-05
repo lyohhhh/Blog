@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors");
 module.exports = {
   purge: [
     "./index.html",
@@ -15,6 +16,11 @@ module.exports = {
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
       serif: ["Merriweather", "serif"],
+    },
+    colors: {
+      ...colors,
+      themebgcolor: colors.gray,
+      themetextcolor: colors.sky,
     },
     extend: {
       spacing: {

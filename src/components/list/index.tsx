@@ -22,7 +22,7 @@ export default defineComponent({
     return (
       <ul class="article-list divide-y shadow-sm divide-gray-200  dark:divide-gray-700">
         {this.$props.list.map((item) => (
-          <li class="article-item group p-5 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:bg-opacity-75">
+          <li class="article-item group p-5 cursor-pointer hover:bg-themebgcolor-50 dark:hover:bg-themebgcolor-800 dark:hover:bg-opacity-75">
             <p class="article-title text-md font-medium mb-2 truncate group-hover:underline dark:text-gray-400 md:text-xl">
               {item.title}
             </p>

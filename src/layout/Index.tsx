@@ -19,7 +19,7 @@ export default defineComponent({
       <>
         <header
           class={[
-            "shadow-lg fixed left-0 top-0 right-0 h-16 z-30 bg-white dark:bg-gray-900 dark:shadow-gray-700 md:px-0",
+            "shadow-lg fixed left-0 top-0 right-0 h-16 z-30 bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 md:px-0",
           ]}
         >
           <div class="flex container px-4 m-auto h-full items-center justify-between dark:text-gray-300 md:w-full md:px-0">
@@ -31,7 +31,7 @@ export default defineComponent({
             </div>
             <span class="font-mono text-xl lg:text-2xl">BLOG</span>
 
-            <Navbar class="hidden inline-flex flex-1 justify-end fixed left-0 top-0 bottom-0 right-0 w-full lg:static"></Navbar>
+            <Navbar class="inline-flex flex-1 justify-end left-0 top-0 bottom-0 right-0 w-full"></Navbar>
             <div class="icon-wrapper flex items-center ">
               <icon-font
                 onClick={this.changeTailWindMode}
