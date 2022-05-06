@@ -1,17 +1,29 @@
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
+import { useResize } from "@/hooks/useResize";
+import { http } from "@/api";
+
+import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/navbar";
 // import style from "@/styles/layout/index.module.scss";
 
 export default defineComponent({
   setup() {
     const tailwind = useMode();
+    const isMobile = useResize();
     const isDark = computed(() => tailwind.mode.value == 1);
+    const category = reactive<Tree[]>([]);
+
+    http("/api/category").then(({ data }) => {
+      category.push(...data);
+    });
 
     return {
       changeTailWindMode: tailwind.changeTailWindMode,
       isDark,
+      isMobile,
+      category,
     };
   },
   render() {
@@ -31,7 +43,14 @@ export default defineComponent({
             </div>
             <span class="font-mono text-xl lg:text-2xl">BLOG</span>
 
-            <Navbar class="inline-flex flex-1 justify-end left-0 top-0 bottom-0 right-0 w-full"></Navbar>
+            {this.isMobile ? (
+              <Sidebar category={this.category}></Sidebar>
+            ) : (
+              <Navbar
+                category={this.category}
+                class="inline-flex flex-1 justify-end left-0 top-0 bottom-0 right-0 w-full"
+              ></Navbar>
+            )}
             <div class="icon-wrapper flex items-center ">
               <icon-font
                 onClick={this.changeTailWindMode}

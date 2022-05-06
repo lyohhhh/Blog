@@ -1,9 +1,5 @@
 // 节流
-export const throttle = function (
-  fn: typeof Function,
-  delay = 100,
-  immediate = true
-) {
+export const throttle = function (fn: Function, delay = 100, immediate = true) {
   let timer: null | NodeJS.Timeout = null;
   return function (this: any, ...args: any[]) {
     if (!timer) {
@@ -17,11 +13,7 @@ export const throttle = function (
 };
 
 // 防抖
-export const debounce = function (
-  fn: typeof Function,
-  delay = 100,
-  immediate = true
-) {
+export const debounce = function (fn: Function, delay = 100, immediate = true) {
   let timer: null | NodeJS.Timeout = null;
   return function (this: any, ...args: any[]) {
     if (timer) clearTimeout(timer);

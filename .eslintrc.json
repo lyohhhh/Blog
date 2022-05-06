@@ -19,6 +19,15 @@
   "rules": {
     "vue/multi-word-component-names": 0,
     "@typescript-eslint/no-explicit-any": ["off"],
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "Function": false
+        }
+      }
+    ]
   }
 }

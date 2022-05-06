@@ -1,14 +1,17 @@
-import { defineComponent, reactive } from "vue";
-import { http } from "@/api";
+import { defineComponent, PropType, reactive } from "vue";
+
+import side from "@/components/[shared]/css/side.module.scss";
+
 export default defineComponent({
   name: "navbar",
+  props: {
+    category: {
+      type: [] as PropType<Tree[]>,
+      required: true,
+    },
+  },
   setup() {
-    const category = reactive<Tree[]>([]);
     const slideBooleanList = reactive<boolean[]>([]);
-    http("/api/category").then(({ data }) => {
-      category.push(...data);
-      slideBooleanList.push(...new Array(data.length).fill(false));
-    });
 
     const slideShow = (i: number) => {
       for (let item of slideBooleanList) {
@@ -22,14 +25,13 @@ export default defineComponent({
     };
 
     return {
-      c: category,
       slideShow,
       slideHide,
       slideBooleanList,
     };
   },
   render() {
-    const main = createTree.call(this, this.c);
+    const main = createTree.call(this, this.category);
     return (
       <div>
         {/* <div class="side-nav-bar-masker absolute w-full h-full bg-black opacity-50 lg:hidden"></div> */}
@@ -48,14 +50,17 @@ function createTree(this: any, tree: Tree[]): JSX.Element | null {
       {tree.map((item, index) => {
         return (
           <li
-            class="p-4 cursor-pointer relative group"
+            class={[
+              "py-4 px-2 cursor-pointer relative group md:px-4",
+              side["group"],
+            ]}
             onMouseover={this.slideShow.bind(this, index)}
             onMouseout={this.slideHide.bind(this, index)}
           >
             <span
               class={[
                 "text-sm inline-block border-themetextcolor-500 cursor-pointer box-border group-hover:border-b-2 dark:border-themetextcolor-300",
-                // item.children ? "group-hover:border-b-2" : null,
+                item.children ? side["side-tips"] : null,
               ]}
             >
               {item.name}

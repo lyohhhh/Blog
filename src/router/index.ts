@@ -24,7 +24,7 @@ const routers = createRouter({
 });
 
 routers.beforeEach((to, from, next) => {
-  document.title = <string>to.meta.title || "组件库测试";
+  document.title = <string>to.meta.title || "博客";
   next();
 });
 export default routers;
