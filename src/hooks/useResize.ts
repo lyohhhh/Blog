@@ -15,10 +15,14 @@ export const useResize = () => {
 };
 
 export const resizeHandle = (): number => {
-  return document.documentElement.clientWidth || document.body.offsetWidth;
+  return (
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth
+  );
 };
 
 export const isMobileHandle = (): boolean => {
   const windowWidth = resizeHandle();
-  return windowWidth <= MOBILE;
+  return windowWidth < MOBILE;
 };

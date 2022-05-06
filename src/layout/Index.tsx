@@ -1,4 +1,4 @@
-import { computed, defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive, ref, watch } from "vue";
 import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
@@ -6,6 +6,7 @@ import { http } from "@/api";
 
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/navbar";
+
 // import style from "@/styles/layout/index.module.scss";
 
 export default defineComponent({
@@ -14,9 +15,18 @@ export default defineComponent({
     const isMobile = useResize();
     const isDark = computed(() => tailwind.mode.value == 1);
     const category = reactive<Tree[]>([]);
+    const isCollapse = ref<boolean>(false);
 
     http("/api/category").then(({ data }) => {
       category.push(...data);
+    });
+
+    const collapseHandle = () => {
+      isCollapse.value = !isCollapse.value;
+    };
+
+    watch(isCollapse, () => {
+      console.log(isCollapse.value);
     });
 
     return {
@@ -24,6 +34,8 @@ export default defineComponent({
       isDark,
       isMobile,
       category,
+      isCollapse,
+      collapseHandle,
     };
   },
   render() {
@@ -35,7 +47,10 @@ export default defineComponent({
           ]}
         >
           <div class="flex container px-4 m-auto h-full items-center justify-between dark:text-gray-300 md:w-full md:px-0">
-            <div class="md:hidden cursor-pointer">
+            <div
+              class="block sm:hidden cursor-pointer"
+              onClick={this.collapseHandle}
+            >
               <icon-font
                 icon="view_list-o"
                 class="font-medium text-xl"
@@ -44,7 +59,10 @@ export default defineComponent({
             <span class="font-mono text-xl lg:text-2xl">BLOG</span>
 
             {this.isMobile ? (
-              <Sidebar category={this.category}></Sidebar>
+              <Sidebar
+                v-model={this.isCollapse}
+                category={this.category}
+              ></Sidebar>
             ) : (
               <Navbar
                 category={this.category}
