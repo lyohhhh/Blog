@@ -14,7 +14,7 @@ export default [
             content: "@cword(100,500)",
             time: "@date(yyyy-MM-dd)",
             author: "@cname",
-            img: "@image",
+            img: "@image(175x84)",
           },
         ],
         message: "success",

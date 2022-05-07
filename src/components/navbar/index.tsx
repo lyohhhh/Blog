@@ -15,7 +15,7 @@ const Navbar = defineComponent({
 
     const slideShow = (i: number) => {
       for (let item of slideBooleanList) {
-        console.log(item);
+        item;
         item = false;
       }
       slideBooleanList[i] = true;
