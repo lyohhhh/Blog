@@ -21,8 +21,16 @@
               duration-300;
     }
   }
+}
 
+.group-hover {
   &:hover .side-tips::after {
+    @apply rotate-180;
+  }
+}
+
+.group-click {
+  .side-tips::after {
     @apply rotate-180;
   }
 }

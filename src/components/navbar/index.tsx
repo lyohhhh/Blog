@@ -2,7 +2,7 @@ import { defineComponent, PropType, reactive } from "vue";
 
 import side from "@/components/[shared]/css/side.module.scss";
 
-export default defineComponent({
+const Navbar = defineComponent({
   name: "navbar",
   props: {
     category: {
@@ -43,7 +43,10 @@ export default defineComponent({
   },
 });
 
-function createTree(this: any, tree: Tree[]): JSX.Element | null {
+function createTree(
+  this: InstanceType<typeof Navbar>,
+  tree: Tree[]
+): JSX.Element | null {
   if (!tree.length) return null;
   return (
     <>
@@ -51,7 +54,7 @@ function createTree(this: any, tree: Tree[]): JSX.Element | null {
         return (
           <li
             class={[
-              "py-4 px-2 cursor-pointer relative group md:px-4",
+              "py-4 px-2 cursor-pointer relative group group-hover md:px-4",
               side["group"],
             ]}
             onMouseover={this.slideShow.bind(this, index)}
@@ -85,3 +88,5 @@ function createTree(this: any, tree: Tree[]): JSX.Element | null {
     </>
   );
 }
+
+export default Navbar;
