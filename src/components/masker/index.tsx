@@ -22,8 +22,8 @@ export default defineComponent({
 
     const touchHandle = (e: Event) => {
       e.stopPropagation();
-      e.preventDefault();
       if (props.lock) {
+        e.preventDefault();
         return false;
       }
     };
