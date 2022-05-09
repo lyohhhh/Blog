@@ -14,6 +14,13 @@ const routes: Array<RouteRecordRaw> = [
           title: "首页",
         },
       },
+      {
+        path: "/:pathMatch(.*)",
+        component: () => import("@/views/404"),
+        meta: {
+          title: "页面不存在",
+        },
+      },
     ],
   },
 ];

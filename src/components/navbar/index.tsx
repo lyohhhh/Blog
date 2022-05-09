@@ -1,4 +1,5 @@
 import { defineComponent, PropType, reactive } from "vue";
+import { go } from "../[shared]";
 
 import side from "@/components/[shared]/css/side.module.scss";
 
@@ -59,6 +60,7 @@ function createTree(
             ]}
             onMouseover={this.slideShow.bind(this, index)}
             onMouseout={this.slideHide.bind(this, index)}
+            onClick={(e) => go(e, item.url as string)}
           >
             <span
               class={[
@@ -76,7 +78,10 @@ function createTree(
                 ]}
               >
                 {item.children.map((c) => (
-                  <li class="whitespace-nowrap px-4 text-sm py-1.5 hover:text-themetextcolor-500 dark:hover:text-themetextcolor-300">
+                  <li
+                    onClick={(e) => go(e, c.url as string)}
+                    class="whitespace-nowrap px-4 text-sm py-1.5 hover:text-themetextcolor-500 dark:hover:text-themetextcolor-300"
+                  >
                     {c.name}
                   </li>
                 ))}
