@@ -1,33 +1,24 @@
-import { useRouter } from "vue-router";
-// import Routers from "@/router";
-// import { watch } from "vue";
-
-// const route = Routers.currentRoute.value;
-// const routers = Routers;
-// watch(
-//   () => route.query,
-//   (query) => {
-//     console.log(query);
-//   }
-// );
-
+// import { useRouter } from "vue-router";
+// 使用 useRouter 放在 setup 中才能获取到对应的值
+// ---> 这里的 useRouter 为 undefined
+import Routers from "@/router";
 interface TOptions {
   push: (path: string, params?: { [key: string]: any }, type?: number) => void;
   redirect: (path: string) => void;
 }
 
-const router = useRouter();
+// const router = useRouter();
 
 export const $T = {
   push(path, params, type = 1) {
     if (!path) return;
-    router.push({
+    Routers.push({
       path,
-      [type == 1 ? "query" : "params "]: params,
+      [type == 1 ? "query" : "params"]: params,
     });
   },
   redirect(path) {
     if (!path) return;
-    router.replace(path);
+    Routers.replace(path);
   },
 } as TOptions;
