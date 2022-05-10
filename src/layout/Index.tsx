@@ -6,7 +6,8 @@ import {
   KeepAlive,
   VNode,
 } from "vue";
-import { RouterView, useRoute } from "vue-router";
+
+import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
 import { http } from "@/api";
@@ -16,7 +17,6 @@ import Navbar from "@/components/navbar";
 
 export default defineComponent({
   setup() {
-    const route = useRoute();
     const tailwind = useMode();
     const isMobile = useResize();
     const isDark = computed(() => tailwind.mode.value == 1);
@@ -31,19 +31,13 @@ export default defineComponent({
       isCollapse.value = !isCollapse.value;
     };
 
-    const isKeepAlive = computed<boolean>(() => {
-      console.log(!!route.meta.keepAlive);
-      return !!route.meta.keepAlive;
-    });
-
     return {
       changeTailWindMode: tailwind.changeTailWindMode,
+      collapseHandle,
       isDark,
       isMobile,
       category,
       isCollapse,
-      collapseHandle,
-      isKeepAlive,
     };
   },
   render() {
@@ -92,10 +86,7 @@ export default defineComponent({
         <div class="container m-auto pt-20 pb-10 px-4 md:px-0 md:pt-24">
           <RouterView>
             {(props: { Component: VNode }) => {
-              const KeepAliveCom = (
-                <KeepAlive>{this.isKeepAlive && props.Component}</KeepAlive>
-              );
-              return KeepAliveCom;
+              return <KeepAlive>{props.Component}</KeepAlive>;
             }}
           </RouterView>
         </div>

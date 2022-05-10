@@ -1,4 +1,4 @@
-import { defineComponent, KeepAlive, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 import List, { Props } from "@/components/list";
 import LoadingMore from "@/components/loading";
 import { http } from "@/api";

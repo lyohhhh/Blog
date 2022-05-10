@@ -5,9 +5,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     redirect: "/Index",
     component: () => import("@/layout/Index"),
-    meta: {
-      keepAlive: true,
-    },
     children: [
       {
         path: "/Index",
@@ -15,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Home/Index"),
         meta: {
           title: "首页",
-          keepAlive: true,
+          keepScroll: true,
         },
       },
       {
@@ -40,6 +37,13 @@ const routes: Array<RouteRecordRaw> = [
 const routers = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (!to.meta.keepScroll) return { left: 0, top: 0 };
+    return savedPosition as {
+      left: number;
+      top: number;
+    };
+  },
 });
 
 routers.beforeEach((to, from, next) => {
