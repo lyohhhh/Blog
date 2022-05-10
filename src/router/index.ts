@@ -5,6 +5,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     redirect: "/Index",
     component: () => import("@/layout/Index"),
+    meta: {
+      keepAlive: true,
+    },
     children: [
       {
         path: "/Index",
@@ -12,6 +15,15 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Home/Index"),
         meta: {
           title: "首页",
+          keepAlive: true,
+        },
+      },
+      {
+        path: "/Details/:id",
+        name: "Details",
+        component: () => import("@/views/Article/Details"),
+        meta: {
+          title: "文章详情",
         },
       },
       {
