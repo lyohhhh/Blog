@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref, Transition } from "vue";
+import { defineComponent, PropType, ref, Teleport, Transition } from "vue";
 
 import Mask from "@/components/masker";
 
@@ -17,7 +17,7 @@ const Sidebar = defineComponent({
     },
   },
   emits: ["update:modelValue"],
-  setup(ctx, { emit }) {
+  setup(props, { emit }) {
     const activedIndex = ref<number>(-1);
 
     const changeCollapse = (flag: boolean) => {
@@ -38,7 +38,7 @@ const Sidebar = defineComponent({
   render() {
     const props = this.$props;
     return (
-      <>
+      <Teleport to="#app">
         <Transition
           enterFromClass={sideAnimate["translate-enter"]}
           leaveToClass={sideAnimate["translate-enter"]}
@@ -46,7 +46,7 @@ const Sidebar = defineComponent({
           leaveActiveClass={sideAnimate["translate-active"]}
         >
           <aside
-            class="fixed top-0 left-0 bottom-0 w-1/2 bg-white z-20 dark:bg-themebgcolor-900"
+            class="fixed top-0 left-0 bottom-0 w-1/2 bg-white z-30 dark:bg-themebgcolor-900"
             v-show={props.modelValue}
           >
             <main class="side-main text-center h-full box-border pt-16">
@@ -57,7 +57,7 @@ const Sidebar = defineComponent({
         </Transition>
 
         <Mask show={props.modelValue} onChange={this.changeCollapse}></Mask>
-      </>
+      </Teleport>
     );
   },
 });

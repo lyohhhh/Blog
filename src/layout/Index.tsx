@@ -45,10 +45,10 @@ export default defineComponent({
       <>
         <header
           class={[
-            "shadow-lg fixed left-0 top-0 right-0 h-16 z-30 bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 md:px-0",
+            "shadow-lg fixed left-0 top-0 right-0 h-16 z-10 bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700",
           ]}
         >
-          <div class="flex container px-4 m-auto h-full items-center justify-between dark:text-gray-300 md:w-full md:px-0">
+          <div class="flex container px-4 m-auto h-full items-center justify-between dark:text-gray-300 md:w-full sm:px-0 ">
             <div
               class="block sm:hidden cursor-pointer"
               onClick={this.collapseHandle}
@@ -83,7 +83,7 @@ export default defineComponent({
             </div>
           </div>
         </header>
-        <div class="container m-auto pt-20 pb-10 px-4 md:px-0 md:pt-24">
+        <div class="container m-auto pt-20 pb-10 px-0 md:px-0 md:pt-24">
           <RouterView>
             {(props: { Component: VNode }) => {
               return <KeepAlive>{props.Component}</KeepAlive>;
