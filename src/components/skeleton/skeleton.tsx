@@ -4,6 +4,7 @@ import { defineComponent, PropType, renderSlot } from "vue";
 const isMobile = useResize();
 
 export default defineComponent({
+  name: "Skeleton",
   props: {
     rows: {
       type: Number as PropType<number>,
