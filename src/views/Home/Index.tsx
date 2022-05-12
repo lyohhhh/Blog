@@ -37,7 +37,7 @@ export default defineComponent({
           loadOpts.loading = false;
           setTimeout(() => {
             skeletonLoading.value = false;
-          }, 1500);
+          }, 15000);
         });
     };
 
