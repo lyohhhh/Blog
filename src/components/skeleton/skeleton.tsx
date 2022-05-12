@@ -18,7 +18,7 @@ export default defineComponent({
     },
     items: {
       type: Number as PropType<number>,
-      default: isMobile.value ? 5 : 3,
+      default: 1,
     },
     title: {
       type: Boolean,
@@ -30,7 +30,7 @@ export default defineComponent({
     },
     loading: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     time: {
       type: Boolean,
@@ -39,31 +39,49 @@ export default defineComponent({
   },
   render() {
     const props = this.$props;
+
+    const renderTitle = () => {
+      return props.title ? (
+        <div class="skeletion-item bg-gray-100 h-4 mb-4 md:h-6 md:mb-6 dark:bg-themebgcolor-500"></div>
+      ) : null;
+    };
+
+    const renderContent = () => {
+      return new Array(props.rows)
+        .fill(1)
+        .map((r, index) => (
+          <div
+            class="skeletion-item bg-gray-100 h-3 mb-4 md:h-4 md:mb-4 dark:bg-themebgcolor-500"
+            style={{ width: getPropsWidth(props.rowWidth, index) }}
+          ></div>
+        ));
+    };
+
+    const renderImage = () => {
+      return props.image ? (
+        <div class="skeleton-image__wrapper">
+          <div class="skeleton-image w-24 ml-4 h-10 bg-gray-100 md:w-44 md:h-20 md:ml-6 dark:bg-themebgcolor-500"></div>
+        </div>
+      ) : null;
+    };
+
+    const renderTime = () => {
+      return props.time ? (
+        <div class="skeletion-item bg-gray-100 h-2 w-28 mt-1 md:h-3 md:mt-2 dark:bg-themebgcolor-500"></div>
+      ) : null;
+    };
+
     return (
       <>
         {props.loading
           ? new Array(props.items).fill(1).map(() => (
               <div class="skeleton p-4 animate-pulse">
-                {props.title && (
-                  <div class="skeletion-item bg-gray-100 h-4 mb-4 md:h-6 md:mb-6 dark:bg-themebgcolor-500"></div>
-                )}
+                {renderTitle()}
                 <div class="skeleton-content flex">
-                  <div class="skeleton-main flex-1">
-                    {new Array(props.rows).fill(1).map((r, index) => (
-                      <div
-                        class="skeletion-item bg-gray-100 h-3 mb-4 md:h-4 md:mb-4 dark:bg-themebgcolor-500"
-                        style={{ width: getPropsWidth(props.rowWidth, index) }}
-                      ></div>
-                    ))}
-                  </div>
-                  <div class="skeleton-image__wrapper">
-                    <div class="skeleton-image w-24 ml-4 h-10 bg-gray-100 md:w-44 md:h-20 md:ml-6 dark:bg-themebgcolor-500"></div>
-                  </div>
+                  <div class="skeleton-main flex-1">{renderContent()}</div>
+                  {renderImage()}
                 </div>
-
-                {props.time && (
-                  <div class="skeletion-item bg-gray-100 h-2 w-28 mt-1 md:h-3 md:mt-2 dark:bg-themebgcolor-500"></div>
-                )}
+                {renderTime()}
               </div>
             ))
           : renderSlot(this.$slots, "default")}

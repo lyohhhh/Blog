@@ -32,4 +32,20 @@ export default [
       };
     },
   },
+  {
+    url: "/api/details",
+    method: "get",
+    response: () => {
+      return {
+        code: 200,
+        data: {
+          title: "@cword(3,50)",
+          content: "@cword(300,1000)",
+          time: "@date(yyyy-MM-dd)",
+          author: "@cname",
+        },
+        message: "success",
+      };
+    },
+  },
 ] as MockMethod[];

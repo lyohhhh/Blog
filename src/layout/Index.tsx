@@ -10,7 +10,7 @@ import {
 import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
-import { http } from "@/api";
+import { Request } from "@/api";
 
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/navbar";
@@ -23,7 +23,7 @@ export default defineComponent({
     const category = reactive<Tree[]>([]);
     const isCollapse = ref<boolean>(false);
 
-    http("/api/category").then(({ data }) => {
+    Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
     });
 

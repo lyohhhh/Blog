@@ -33,7 +33,7 @@ export default defineComponent({
             <p class="article-title text-md font-medium mb-2 truncate group-hover:underline dark:text-gray-400 md:text-xl">
               {item.title}
             </p>
-            <div class="article-content flex text-sm text-gray-500 leading-6 mt-2 md:text-md dark:text-gray-500 md:leading-7">
+            <div class="article-content flex text-sm text-gray-500 leading-6 mt-2 md:text-md dark:text-gray-400 md:leading-7">
               <span class="inline-block ov-2 md:ov-3">{item.content}</span>
               {item.id % 3 ? (
                 <div

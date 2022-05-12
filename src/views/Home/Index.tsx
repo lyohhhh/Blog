@@ -2,7 +2,7 @@ import { defineComponent, reactive, ref, toRefs } from "vue";
 import List, { Props } from "@/components/list";
 import LoadingMore from "@/components/loading";
 import Skeleton from "@/components/skeleton/skeleton";
-import { http } from "@/api";
+import { Request } from "@/api";
 
 interface LoadOpts {
   loading: boolean;
@@ -23,7 +23,7 @@ export default defineComponent({
     });
     const fetch = () => {
       loadOpts.loading = true;
-      http("/api/article")
+      Request.get("/api/article", null)
         .then((res) => {
           if (res.code == 200) {
             list.push(...res.data);
@@ -37,7 +37,7 @@ export default defineComponent({
           loadOpts.loading = false;
           setTimeout(() => {
             skeletonLoading.value = false;
-          }, 15000);
+          }, 1500);
         });
     };
 
@@ -54,8 +54,8 @@ export default defineComponent({
     return (
       <>
         <div class="main w-full flex justify-between justify-self-start px-4 sm:px-0">
-          <div class="content w-full bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 lg:w-9/12">
-            <Skeleton image loading={this.skeletonLoading}>
+          <div class="content shadow-lg w-full bg-white dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 lg:w-9/12 ">
+            <Skeleton image loading={this.skeletonLoading} items={3}>
               <LoadingMore
                 loading={this.loading}
                 finished={this.finished}
@@ -65,7 +65,7 @@ export default defineComponent({
               </LoadingMore>
             </Skeleton>
           </div>
-          <div class="slide w-3/12 ml-10 bg-white rounded-md box-border sticky h-128 top-24 dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 hidden lg:block"></div>
+          <div class="slide shadow-lg w-3/12 ml-10 bg-white rounded-md box-border sticky h-128 top-24 dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 hidden lg:block"></div>
         </div>
       </>
     );
