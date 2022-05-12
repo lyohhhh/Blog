@@ -1,18 +1,38 @@
 import request from "@/utils/http";
+import { AxiosRequestConfig } from "axios";
 
-interface Request {
+interface RequestOpt {
   "/api/article": null;
-  "/api/categoty": null;
+  "/api/category": null;
+  "/api/details": {
+    id: string;
+  };
 }
 
-export function http<T extends keyof Request>(
-  url: string,
-  method = "get",
-  data?: Request[T]
-): Promise<{
-  code: number;
-  data: any;
-  message: string;
-}> {
-  return request[method](url, data);
+export class Request {
+  static get<T extends keyof RequestOpt>(url: T, params: RequestOpt[T]) {
+    return new Promise<HttpResponse>((resolve, reject) => {
+      request
+        .get(url, params as AxiosRequestConfig<RequestOpt[T]>)
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  static post<T extends keyof RequestOpt>(url: T, params: RequestOpt[T]) {
+    return new Promise<HttpResponse>((resolve, reject) => {
+      request
+        .post(url, params as AxiosRequestConfig<RequestOpt[T]>)
+        .then((res) => {
+          resolve(res.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
 }

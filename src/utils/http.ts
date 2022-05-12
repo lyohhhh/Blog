@@ -34,10 +34,7 @@ request.interceptors.request.use(
   errFunc
 );
 
-request.interceptors.response.use((rep: AxiosResponse) => {
-  if (rep.status == 200) {
-    return rep.data;
-  }
+request.interceptors.response.use((rep: AxiosResponse<HttpResponse>) => {
   return rep;
 }, errFunc);
 
