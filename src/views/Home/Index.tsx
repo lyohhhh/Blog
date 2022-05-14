@@ -65,7 +65,7 @@ export default defineComponent({
               </LoadingMore>
             </Skeleton>
           </div>
-          <div class="slide shadow-lg w-3/12 ml-10 bg-white rounded-md box-border sticky h-128 top-24 dark:bg-themebgcolor-900 dark:shadow-themebgcolor-700 hidden lg:block"></div>
+          <r-aside></r-aside>
         </div>
       </>
     );

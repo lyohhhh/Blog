@@ -7,11 +7,12 @@ import "./styles/index.css";
 import "./styles/reset.css";
 
 import Icon from "./components/icon";
+import Aside from "./components/aside";
 
 const pinia = createPinia();
 const app = createApp(App);
 
-app.use(Icon).use(pinia).use(router);
+app.use(Aside).use(Icon).use(pinia).use(router);
 
 router.isReady().then(() => {
   app.mount("#app");
