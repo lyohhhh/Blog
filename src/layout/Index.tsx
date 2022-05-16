@@ -14,6 +14,7 @@ import { Request } from "@/api";
 
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/navbar";
+import Dialog from "@/components/dialog/dialog";
 
 export default defineComponent({
   setup() {
@@ -22,6 +23,7 @@ export default defineComponent({
     const isDark = computed(() => tailwind.mode.value == 1);
     const category = reactive<Tree[]>([]);
     const isCollapse = ref<boolean>(false);
+    const dialogVisible = ref<boolean>(true);
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
@@ -38,6 +40,7 @@ export default defineComponent({
       isMobile,
       category,
       isCollapse,
+      dialogVisible,
     };
   },
   render() {
@@ -90,6 +93,7 @@ export default defineComponent({
             }}
           </RouterView>
         </div>
+        <Dialog v-model={this.dialogVisible}></Dialog>
       </>
     );
   },

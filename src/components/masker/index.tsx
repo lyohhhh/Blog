@@ -43,15 +43,17 @@ export default defineComponent({
           enterActiveClass={maskAnimate["fade-active"]}
           leaveActiveClass={maskAnimate["fade-active"]}
         >
-          <div
-            class={[
-              "mask fixed left-0 right-0 top-0 bottom-0 select-none bg-black bg-opacity-60 z-20",
-            ]}
-            onTouchmove={this.touchHandle}
-            onClick={this.hiddenMask}
-            v-show={props.show}
-            key={Number(props.show)}
-          ></div>
+          {props.show && (
+            <div
+              class={[
+                "mask fixed left-0 right-0 top-0 bottom-0 select-none bg-black bg-opacity-60 z-20",
+              ]}
+              onTouchmove={this.touchHandle}
+              onClick={this.hiddenMask}
+              v-show={props.show}
+              key={Number(props.show)}
+            ></div>
+          )}
         </Transition>
       </Teleport>
     );
