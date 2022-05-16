@@ -23,7 +23,7 @@ export default defineComponent({
     const isDark = computed(() => tailwind.mode.value == 1);
     const category = reactive<Tree[]>([]);
     const isCollapse = ref<boolean>(false);
-    const dialogVisible = ref<boolean>(true);
+    const dialogVisible = ref<boolean>(false);
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
@@ -93,7 +93,12 @@ export default defineComponent({
             }}
           </RouterView>
         </div>
-        <Dialog v-model={this.dialogVisible}></Dialog>
+        <Dialog
+          v-model={this.dialogVisible}
+          v-slots={{
+            title: () => "登录",
+          }}
+        ></Dialog>
       </>
     );
   },

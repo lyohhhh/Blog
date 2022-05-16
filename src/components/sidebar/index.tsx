@@ -1,6 +1,6 @@
 import { defineComponent, PropType, ref, Teleport, Transition } from "vue";
 
-import Mask from "@/components/masker";
+import Mask from "@/components/masker/masker";
 
 import sideAnimate from "./side.module.scss";
 import side from "@/components/[shared]/css/side.module.scss";

@@ -1,8 +1,7 @@
 import { App } from "vue";
-import Button from "./button";
-
+import Masker from "./masker";
 export default {
   install(Vue: App) {
-    Vue.component(Button.name, Button);
+    Vue.component(Masker.name, Masker);
   },
 };
