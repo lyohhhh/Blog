@@ -23,7 +23,7 @@ export default defineComponent({
     const isDark = computed(() => tailwind.mode.value == 1);
     const category = reactive<Tree[]>([]);
     const isCollapse = ref<boolean>(false);
-    const dialogVisible = ref<boolean>(false);
+    const dialogVisible = ref<boolean>(true);
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);

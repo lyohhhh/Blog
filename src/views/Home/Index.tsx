@@ -1,6 +1,6 @@
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import List, { Props } from "@/components/list";
-import LoadingMore from "@/components/loading";
+import LoadingMore from "@/components/loading/loading";
 import Skeleton from "@/components/skeleton/skeleton";
 import { Request } from "@/api";
 

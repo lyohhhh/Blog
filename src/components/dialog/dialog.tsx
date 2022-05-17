@@ -1,5 +1,4 @@
 import { defineComponent, renderSlot, Teleport } from "vue";
-import Masker from "../masker/masker";
 
 export default defineComponent({
   name: "Dialog",
@@ -48,7 +47,15 @@ export default defineComponent({
                 ? renderSlot(this.$slots, "default")
                 : "content"}
             </div>
-            <div class="dialog-footer">{renderSlot(this.$slots, "footer")}</div>
+            <div class="dialog-footer">
+              {this.$slots.footer ? (
+                renderSlot(this.$slots, "footer")
+              ) : (
+                <div class="flex justify-end items-center">
+                  <TButton></TButton>
+                </div>
+              )}
+            </div>
           </div>
         ) : null}
         <Masker

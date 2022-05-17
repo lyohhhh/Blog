@@ -8,11 +8,12 @@ import "./styles/reset.css";
 
 import Icon from "./components/icon";
 import Aside from "./components/aside";
+import Button from "./components/button";
 
 const pinia = createPinia();
 const app = createApp(App);
 
-app.use(Aside).use(Icon).use(pinia).use(router);
+app.use(Button).use(Aside).use(Icon).use(pinia).use(router);
 
 router.isReady().then(() => {
   app.mount("#app");
