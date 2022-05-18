@@ -1,7 +1,5 @@
 import { defineComponent, reactive, ref, toRefs } from "vue";
-import List, { Props } from "@/components/list";
-import LoadingMore from "@/components/loading/loading";
-import Skeleton from "@/components/skeleton/skeleton";
+import { Props } from "@/components/list/src";
 import { Request } from "@/api";
 
 interface LoadOpts {
@@ -65,7 +63,7 @@ export default defineComponent({
               </LoadingMore>
             </Skeleton>
           </div>
-          <r-aside></r-aside>
+          <RAside></RAside>
         </div>
       </>
     );

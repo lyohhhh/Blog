@@ -1,7 +1,7 @@
 import { defineComponent, PropType } from "vue";
 import { $T } from "@/hooks/useRouter";
 
-import list from "./list.module.scss";
+import list from "../styles/list.module.scss";
 
 export interface Props {
   id: number;
@@ -13,6 +13,7 @@ export interface Props {
 }
 
 export default defineComponent({
+  name: "List",
   props: {
     list: {
       type: [] as PropType<Props[]>,

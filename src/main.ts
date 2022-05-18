@@ -6,14 +6,12 @@ import router from "./router";
 import "./styles/index.css";
 import "./styles/reset.css";
 
-import Icon from "./components/icon";
-import Aside from "./components/aside";
-import Button from "./components/button";
+import Components from "@/components";
 
 const pinia = createPinia();
 const app = createApp(App);
 
-app.use(Button).use(Aside).use(Icon).use(pinia).use(router);
+app.use(Components).use(pinia).use(router);
 
 router.isReady().then(() => {
   app.mount("#app");

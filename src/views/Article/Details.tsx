@@ -1,7 +1,6 @@
 import { Request } from "@/api";
 import { defineComponent, onActivated, ref } from "vue";
 import { useRoute } from "vue-router";
-import Skeleton from "@/components/skeleton/skeleton";
 export default defineComponent({
   setup() {
     const route = useRoute();

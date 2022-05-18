@@ -1,3 +1,5 @@
+import { Button } from "@/components/button";
+import { Masker } from "@/components/masker";
 import { defineComponent, renderSlot, Teleport } from "vue";
 
 export default defineComponent({
@@ -52,7 +54,7 @@ export default defineComponent({
                 renderSlot(this.$slots, "footer")
               ) : (
                 <div class="flex justify-end items-center">
-                  <TButton></TButton>
+                  <Button></Button>
                 </div>
               )}
             </div>

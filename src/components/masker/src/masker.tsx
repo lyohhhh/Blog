@@ -1,6 +1,6 @@
 import { defineComponent, PropType, Teleport, Transition } from "vue";
 
-import maskAnimate from "./mask.module.scss";
+import maskAnimate from "../styles/mask.module.scss";
 
 export default defineComponent({
   name: "mask",

@@ -12,10 +12,6 @@ import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
 import { Request } from "@/api";
 
-import Sidebar from "@/components/sidebar";
-import Navbar from "@/components/navbar";
-import Dialog from "@/components/dialog/dialog";
-
 export default defineComponent({
   setup() {
     const tailwind = useMode();
@@ -56,10 +52,10 @@ export default defineComponent({
               class="block sm:hidden cursor-pointer"
               onClick={this.collapseHandle}
             >
-              <icon-font
+              <IconFont
                 icon="view_list-o"
                 class="font-medium text-xl"
-              ></icon-font>
+              ></IconFont>
             </div>
             <span class="font-mono text-xl lg:text-2xl">BLOG</span>
 
@@ -75,14 +71,14 @@ export default defineComponent({
               ></Navbar>
             )}
             <div class="icon-wrapper flex items-center ">
-              <icon-font
+              <IconFont
                 onClick={this.changeTailWindMode}
                 class={[
                   "text-xl cursor-pointer text-right max-h-full",
                   this.isDark ? "text-yellow-300" : "text-gray-700",
                 ]}
                 icon={this.isDark ? "wb_sunny" : "dark"}
-              ></icon-font>
+              ></IconFont>
             </div>
           </div>
         </header>

@@ -1,5 +1,5 @@
 import { defineComponent, PropType, reactive } from "vue";
-import { go } from "../[shared]";
+import { go } from "../../[shared]";
 
 import side from "@/components/[shared]/css/side.module.scss";
 
