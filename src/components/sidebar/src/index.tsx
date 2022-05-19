@@ -1,9 +1,8 @@
 import { defineComponent, PropType, ref, Teleport, Transition } from "vue";
 
-import Mask from "@/components/masker/src/masker";
-
+import { Masker } from "@/components/components";
 import sideAnimate from "../styles/side.module.scss";
-import side from "@/components/[shared]/css/side.module.scss";
+import side from "@shared/css/side.module.scss";
 
 const Sidebar = defineComponent({
   name: "sideBar",
@@ -56,7 +55,7 @@ const Sidebar = defineComponent({
           </aside>
         </Transition>
 
-        <Mask show={props.modelValue} onChange={this.changeCollapse}></Mask>
+        <Masker show={props.modelValue} onChange={this.changeCollapse}></Masker>
       </Teleport>
     );
   },

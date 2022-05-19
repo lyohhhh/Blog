@@ -1,7 +1,6 @@
 import { defineComponent, PropType, reactive } from "vue";
-import { go } from "../../[shared]";
-
-import side from "@/components/[shared]/css/side.module.scss";
+import { go } from "@shared/index";
+import side from "@shared/css/side.module.scss";
 
 const Navbar = defineComponent({
   name: "navbar",

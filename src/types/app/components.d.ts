@@ -7,7 +7,7 @@ declare module "vue" {
     Dialog: typeof Components["Dialog"];
     IconFont: typeof Components["IconFont"];
     List: typeof Components["List"];
-    Loading: typeof Components["Loading"];
+    LoadingMore: typeof Components["LoadingMore"];
     Masker: typeof Components["Masker"];
     Navbar: typeof Components["Navbar"];
     SideBar: typeof Components["SideBar"];

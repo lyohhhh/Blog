@@ -19,6 +19,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve("./src"),
+      "@shared": resolve("./src/components/[shared]"),
     },
     extensions: [".js", ".tsx", ".vue", ".json", ".ts"],
   },

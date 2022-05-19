@@ -1,6 +1,6 @@
 import { defineComponent, ref } from "vue";
 
-import { Skeleton } from "../../skeleton";
+import { Skeleton } from "@/components/components";
 
 export default defineComponent({
   name: "RAside",

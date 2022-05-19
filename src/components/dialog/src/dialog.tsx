@@ -1,5 +1,4 @@
-import { Button } from "@/components/button";
-import { Masker } from "@/components/masker";
+import { Masker, Button } from "@/components/components";
 import { defineComponent, renderSlot, Teleport } from "vue";
 
 export default defineComponent({

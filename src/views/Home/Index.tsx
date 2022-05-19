@@ -1,6 +1,7 @@
 import { defineComponent, reactive, ref, toRefs } from "vue";
 import { Props } from "@/components/list/src";
 import { Request } from "@/api";
+import { Skeleton, LoadingMore, List, RAside } from "@/components/components";
 
 interface LoadOpts {
   loading: boolean;
