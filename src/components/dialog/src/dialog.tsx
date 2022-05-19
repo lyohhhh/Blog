@@ -49,10 +49,12 @@ export default defineComponent({
 
     const emitConfirm = () => {
       emit("confirm");
+      hideDialog();
     };
 
     const emitCancel = () => {
       emit("cancel");
+      hideDialog();
     };
 
     return { hideDialog, emitConfirm, emitCancel };
@@ -68,7 +70,7 @@ export default defineComponent({
             <div class="dialog-title text-center p-4 text-lg font-semibold">
               {this.$slots.title ? renderSlot(this.$slots, "title") : "提示"}
             </div>
-            <div class="dialog-content">
+            <div class="dialog-content px-4">
               {this.$slots.default
                 ? renderSlot(this.$slots, "default")
                 : "content"}
