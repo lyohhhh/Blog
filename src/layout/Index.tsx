@@ -11,6 +11,7 @@ import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
 import { Request } from "@/api";
+import { Dialog, IconFont, Navbar, Sidebar } from "@/components/components";
 
 export default defineComponent({
   setup() {
@@ -89,12 +90,7 @@ export default defineComponent({
             }}
           </RouterView>
         </div>
-        <Dialog
-          v-model={this.dialogVisible}
-          v-slots={{
-            title: () => "登录",
-          }}
-        ></Dialog>
+        <Dialog v-model={this.dialogVisible} v-slots={{}}></Dialog>
       </>
     );
   },

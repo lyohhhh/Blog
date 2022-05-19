@@ -1,21 +1,19 @@
 import { defineComponent, PropType } from "vue";
 import "@/styles/icon/index.css";
 
-interface Icon {
-  icon: string;
-  class: string[];
-}
-
 export default defineComponent({
   name: "IconFont",
   props: {
     icon: {
-      type: [] as PropType<Icon>,
+      type: String,
       required: true,
     },
     styles: {
-      type: [] as PropType<Icon[]>,
-      required: true,
+      type: [] as PropType<string[]>,
+      required: false,
+    },
+    onClick: {
+      type: Function,
     },
   },
 

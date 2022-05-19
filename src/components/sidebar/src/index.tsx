@@ -5,7 +5,7 @@ import sideAnimate from "../styles/side.module.scss";
 import side from "@shared/css/side.module.scss";
 
 const Sidebar = defineComponent({
-  name: "sideBar",
+  name: "Sidebar",
   props: {
     category: {
       type: [] as PropType<Tree[]>,

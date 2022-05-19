@@ -20,6 +20,22 @@ export default defineComponent({
       type: String,
       default: "10vh",
     },
+    cancelLoading: {
+      type: Boolean,
+      default: false,
+    },
+    confirmLoading: {
+      type: Boolean,
+      default: false,
+    },
+    cancelDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    confirmDisabled: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: {
       type: Boolean,
       default: false,
@@ -30,7 +46,16 @@ export default defineComponent({
     const hideDialog = () => {
       emit("update:modelValue", false);
     };
-    return { hideDialog };
+
+    const emitConfirm = () => {
+      emit("confirm");
+    };
+
+    const emitCancel = () => {
+      emit("cancel");
+    };
+
+    return { hideDialog, emitConfirm, emitCancel };
   },
   render() {
     return (
@@ -48,12 +73,28 @@ export default defineComponent({
                 ? renderSlot(this.$slots, "default")
                 : "content"}
             </div>
-            <div class="dialog-footer">
+            <div class="dialog-footer p-4">
               {this.$slots.footer ? (
                 renderSlot(this.$slots, "footer")
               ) : (
                 <div class="flex justify-end items-center">
-                  <Button></Button>
+                  {this.showCancel && (
+                    <Button
+                      loading={this.cancelLoading}
+                      disabled={this.cancelDisabled}
+                      onClick={this.emitCancel}
+                    >
+                      取消
+                    </Button>
+                  )}
+                  <Button
+                    loading={this.confirmLoading}
+                    disabled={this.confirmDisabled}
+                    onClick={this.emitConfirm}
+                    type="primary"
+                  >
+                    确定
+                  </Button>
                 </div>
               )}
             </div>
