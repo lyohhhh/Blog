@@ -12,13 +12,14 @@ export default defineComponent({
       type: [] as PropType<string[]>,
       required: false,
     },
-    onClick: {
-      type: Function,
-    },
   },
-
-  render() {
-    const icon = this.$props.icon;
-    return <i class={["iconfont", `icon-${icon}`]}></i>;
+  emits: ["click"],
+  setup(props, { emit }) {
+    const emitClick = (...args: any[]) => {
+      emit("click", args);
+    };
+    return () => (
+      <i onClick={emitClick} class={["iconfont", `icon-${props.icon}`]}></i>
+    );
   },
 });
