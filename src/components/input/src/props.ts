@@ -27,8 +27,8 @@ export default {
     type: String,
     default: "请输入",
   },
-  prefix: String,
-  suffix: String,
+  prefixIcon: String,
+  suffixIcon: String,
   modelValue: {
     type: [String, Number],
     required: true,

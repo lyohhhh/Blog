@@ -68,7 +68,9 @@ export const Layout = defineComponent({
         <Dialog
           v-model={this.dialogVisible}
           v-slots={{
-            default: () => <Input v-model={this.testInput}></Input>,
+            default: () => (
+              <Input v-model={this.testInput} prefixIcon="dark"></Input>
+            ),
           }}
         ></Dialog>
       </>
