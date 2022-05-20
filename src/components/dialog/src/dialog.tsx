@@ -64,10 +64,10 @@ export default defineComponent({
       <Teleport to="body">
         {this.modelValue ? (
           <div
-            class="dialog fixed bg-white rounded-md w-72 left-1/2 -translate-x-2/4 z-30 md:w-6/12 lg:w-4/12"
+            class="dialog fixed bg-white rounded-md w-72 left-1/2 -translate-x-2/4 z-30 md:w-6/12 lg:w-4/12 dark:bg-themebgcolor-800"
             style={{ top: this.top }}
           >
-            <div class="dialog-title text-center p-4 text-lg font-semibold">
+            <div class="dialog-title text-center p-4 text-lg font-semibold dark:text-themebgcolor-300">
               {this.$slots.title ? renderSlot(this.$slots, "title") : "提示"}
             </div>
             <div class="dialog-content px-4">

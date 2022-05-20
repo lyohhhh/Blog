@@ -77,7 +77,7 @@ export default defineComponent({
         {renderPrefixIcon()}
         <input
           class={[
-            "input__inner outline-none block w-full rounded border px-4 py-2 text-sm focus:border-themetextcolor-500 placeholder-gray-300 transition-all text-gray-600",
+            "input__inner outline-none bg-white block w-full rounded border px-4 py-2 text-sm focus:border-themetextcolor-500 placeholder-gray-300 transition-all text-gray-600 dark:bg-themebgcolor-800 dark:border-themebgcolor-600 caret-themebgcolor-400",
             props.error && inputStyles["input__error"],
             (props.prefixIcon || slots.prefix) && "pl-8",
             (props.clearable || props.suffixIcon || slots.suffix) && "pr-8",

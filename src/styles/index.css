@@ -32,6 +32,13 @@
     @apply ov-more;
     -webkit-line-clamp: 5;
   }
+
+  .button--light__bg {
+    background: #ecf5ff;
+  }
+  .button--dark__bg {
+    background: #2e3946;
+  }
 }
 
 @layer base {
