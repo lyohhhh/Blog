@@ -21,6 +21,7 @@ module.exports = {
       ...colors,
       themebgcolor: colors.gray,
       themetextcolor: colors.sky,
+      themeerrorcolor: colors.red,
     },
     extend: {
       spacing: {

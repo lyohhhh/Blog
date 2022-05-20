@@ -1,8 +1,8 @@
 import { IconFont } from "@/components/components";
 import { computed, defineComponent, PropType, renderSlot } from "vue";
 import ButtonStyles from "../styles/button.moudle.scss";
-console.log(ButtonStyles);
-
+// console.log(ButtonStyles);
+ButtonStyles;
 export default defineComponent({
   name: "Button",
   props: {

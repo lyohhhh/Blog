@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import "@/styles/icon/index.css";
 
 export default defineComponent({
@@ -9,7 +9,7 @@ export default defineComponent({
       required: true,
     },
     styles: {
-      type: [] as PropType<string[]>,
+      type: String,
       required: false,
     },
   },
@@ -19,7 +19,10 @@ export default defineComponent({
       emit("click", args);
     };
     return () => (
-      <i onClick={emitClick} class={["iconfont", `icon-${props.icon}`]}></i>
+      <i
+        onClick={emitClick}
+        class={["iconfont", `icon-${props.icon}`, props.styles]}
+      ></i>
     );
   },
 });

@@ -8,8 +8,12 @@
   text-sm
   shadow-none
   select-none
+  outline-none
   transition-all;
 
+  &:focus-visible {
+    @apply outline-themetextcolor-400 opacity-80;
+  }
   &.button--xs {
     @apply text-xs;
   }

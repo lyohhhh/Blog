@@ -8,3 +8,4 @@ export * from "./masker";
 export * from "./navbar";
 export * from "./sidebar";
 export * from "./skeleton";
+export * from "./input";

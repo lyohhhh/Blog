@@ -10,8 +10,9 @@ declare module "vue" {
     LoadingMore: typeof Components["LoadingMore"];
     Masker: typeof Components["Masker"];
     Navbar: typeof Components["Navbar"];
-    SideBar: typeof Components["SideBar"];
+    Sidebar: typeof Components["Sidebar"];
     Skeleton: typeof Components["Skeleton"];
+    Input: typeof Components["Input"];
     [key: string]: any;
   }
 }

@@ -11,7 +11,13 @@ import { RouterView } from "vue-router";
 import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
 import { Request } from "@/api";
-import { Dialog, IconFont, Navbar, Sidebar } from "@/components/components";
+import {
+  Dialog,
+  IconFont,
+  Input,
+  Navbar,
+  Sidebar,
+} from "@/components/components";
 
 export const Layout = defineComponent({
   setup() {
@@ -20,7 +26,8 @@ export const Layout = defineComponent({
     const isDark = computed(() => tailwind.mode.value == 1);
     const category = reactive<Tree[]>([]);
     const isCollapse = ref<boolean>(false);
-    const dialogVisible = ref<boolean>(false);
+    const dialogVisible = ref<boolean>(true);
+    const testInput = ref<string>("");
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
@@ -38,6 +45,7 @@ export const Layout = defineComponent({
       category,
       isCollapse,
       dialogVisible,
+      testInput,
     };
   },
   render() {
@@ -57,7 +65,12 @@ export const Layout = defineComponent({
             }}
           </RouterView>
         </div>
-        <Dialog v-model={this.dialogVisible} v-slots={{}}></Dialog>
+        <Dialog
+          v-model={this.dialogVisible}
+          v-slots={{
+            default: () => <Input v-model={this.testInput}></Input>,
+          }}
+        ></Dialog>
       </>
     );
   },
