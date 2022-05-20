@@ -40,7 +40,7 @@ export default defineComponent({
               inputEl.value?.focus();
             }}
             icon="roundclose"
-            class="absolute hidden z-10 text-gray-300 right-0 top-0 h-full w-8  justify-center items-center cursor-pointer hover:text-gray-400 group-active:flex group-focus:flex group-hover:flex"
+            class="absolute hidden z-10 text-gray-300 right-0 top-0 h-full w-8  justify-center items-center cursor-pointer hover:text-gray-400 group-active:flex group-focus:flex group-hover:flex dark:text-gray-400 dark:hover:text-gray-300"
           ></IconFont>
         );
       if (slots.suffix)
@@ -77,7 +77,7 @@ export default defineComponent({
         {renderPrefixIcon()}
         <input
           class={[
-            "input__inner outline-none bg-white block w-full rounded border px-4 py-2 text-sm focus:border-themetextcolor-500 placeholder-gray-300 transition-all text-gray-600 dark:bg-themebgcolor-800 dark:border-themebgcolor-600 caret-themebgcolor-400",
+            "input__inner outline-none bg-white block w-full rounded border px-4 py-2 text-sm focus:border-themetextcolor-500 placeholder-gray-300 transition-all text-gray-600 dark:bg-themebgcolor-800 dark:border-themebgcolor-600 caret-themebgcolor-400 dark:text-gray-400",
             props.error && inputStyles["input__error"],
             (props.prefixIcon || slots.prefix) && "pl-8",
             (props.clearable || props.suffixIcon || slots.suffix) && "pr-8",
