@@ -9,3 +9,4 @@ export * from "./navbar";
 export * from "./sidebar";
 export * from "./skeleton";
 export * from "./input";
+export * from "./form";

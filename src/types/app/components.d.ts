@@ -13,6 +13,8 @@ declare module "vue" {
     Sidebar: typeof Components["Sidebar"];
     Skeleton: typeof Components["Skeleton"];
     Input: typeof Components["Input"];
+    Form: typeof Components["Form"];
+    FormItem: typeof Components["FormItem"];
     [key: string]: any;
   }
 }
