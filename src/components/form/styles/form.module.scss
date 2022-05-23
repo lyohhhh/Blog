@@ -1,0 +1,7 @@
+.form__inline {
+  ::v-deep {
+    .form-item {
+      @apply flex;
+    }
+  }
+}

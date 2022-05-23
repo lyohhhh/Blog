@@ -5,6 +5,7 @@ import {
   ref,
   KeepAlive,
   VNode,
+  toRefs,
 } from "vue";
 
 import { RouterView } from "vue-router";
@@ -13,6 +14,8 @@ import { useResize } from "@/hooks/useResize";
 import { Request } from "@/api";
 import {
   Dialog,
+  Form,
+  FormItem,
   IconFont,
   Input,
   Navbar,
@@ -28,6 +31,13 @@ export const Layout = defineComponent({
     const isCollapse = ref<boolean>(false);
     const dialogVisible = ref<boolean>(true);
     const testInput = ref<string>("");
+    const loginForm = reactive<{
+      userName: string;
+      password: string;
+    }>({
+      userName: "",
+      password: "",
+    });
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
@@ -46,6 +56,7 @@ export const Layout = defineComponent({
       isCollapse,
       dialogVisible,
       testInput,
+      ...toRefs(loginForm),
     };
   },
   render() {
@@ -69,7 +80,14 @@ export const Layout = defineComponent({
           v-model={this.dialogVisible}
           v-slots={{
             default: () => (
-              <Input v-model={this.testInput} prefixIcon="dark"></Input>
+              <Form labelSuffix=":" inline>
+                <FormItem label="账号" prop="userName" required>
+                  <Input></Input>
+                </FormItem>
+                <FormItem label="密码" prop="password">
+                  <Input></Input>
+                </FormItem>
+              </Form>
             ),
           }}
         ></Dialog>

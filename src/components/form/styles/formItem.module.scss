@@ -1,0 +1,6 @@
+.is-required {
+  &::after {
+    content: "*";
+    @apply right-0 text-themeerrorcolor-500 ml-0.5;
+  }
+}
