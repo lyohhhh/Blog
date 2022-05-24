@@ -1,6 +1,6 @@
 .is-required {
-  &::after {
+  &::before {
     content: "*";
-    @apply right-0 text-themeerrorcolor-500 ml-0.5;
+    @apply left-0 text-themeerrorcolor-500 mr-0.5;
   }
 }

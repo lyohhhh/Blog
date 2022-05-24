@@ -1,7 +1,7 @@
 import { defineComponent, renderSlot } from "vue";
 import props from "./form-props";
 
-import formStyle from "../styles/form.modules.scss";
+import formStyle from "../styles/form.module.scss";
 
 const Form = defineComponent({
   name: "Form",

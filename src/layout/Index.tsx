@@ -80,7 +80,7 @@ export const Layout = defineComponent({
           v-model={this.dialogVisible}
           v-slots={{
             default: () => (
-              <Form labelSuffix=":" inline>
+              <Form labelSuffix=":">
                 <FormItem label="账号" prop="userName" required>
                   <Input></Input>
                 </FormItem>

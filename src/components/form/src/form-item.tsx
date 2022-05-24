@@ -19,17 +19,20 @@ const FormItem = defineComponent({
     console.log(props.required);
     return () => (
       <>
-        <div class="form-item mb-4">
+        <div class="form-item mb-4 flex">
           <label
             {...renderLabelAttr()}
             class={[
-              "form-item__label block text-gray-500 text-sm mb-1",
+              "form-item__label flex text-gray-500 text-sm mb-1 justify-end items-center pr-3",
               props.required && itemStyles["is-required"],
             ]}
+            style={{ width: props.labelWidth || "60px" }}
           >
             {props.label}
           </label>
-          <div class="form-item__inner">{renderSlot(slots, "default")}</div>
+          <div class="form-item__inner flex-1">
+            {renderSlot(slots, "default")}
+          </div>
         </div>
       </>
     );
