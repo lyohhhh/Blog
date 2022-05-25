@@ -5,7 +5,6 @@ import {
   ref,
   KeepAlive,
   VNode,
-  toRefs,
 } from "vue";
 
 import { RouterView } from "vue-router";
@@ -39,6 +38,23 @@ export const Layout = defineComponent({
       password: "",
     });
 
+    const rules = reactive({
+      userName: [
+        {
+          required: true,
+          message: "请输入用户名",
+          trigger: "blur",
+        },
+      ],
+      password: [
+        {
+          required: true,
+          message: "请输入密码",
+          trigger: "blur",
+        },
+      ],
+    });
+
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
     });
@@ -56,7 +72,8 @@ export const Layout = defineComponent({
       isCollapse,
       dialogVisible,
       testInput,
-      ...toRefs(loginForm),
+      loginForm,
+      rules,
     };
   },
   render() {
@@ -80,12 +97,15 @@ export const Layout = defineComponent({
           v-model={this.dialogVisible}
           v-slots={{
             default: () => (
-              <Form labelSuffix=":">
-                <FormItem label="账号" prop="userName" required>
-                  <Input></Input>
+              <Form labelSuffix=":" rules={this.rules} model={this.loginForm}>
+                <FormItem label="账号" prop="userName">
+                  <Input v-model={this.loginForm.userName}></Input>
                 </FormItem>
                 <FormItem label="密码" prop="password">
-                  <Input></Input>
+                  <Input
+                    type="password"
+                    v-model={this.loginForm.password}
+                  ></Input>
                 </FormItem>
               </Form>
             ),

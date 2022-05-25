@@ -1,11 +1,13 @@
+import { Rules } from "async-validator";
 import { PropType } from "vue";
 
 export default {
   model: {
     type: Object as PropType<{ [key: string]: any }>,
+    required: true,
   },
   rules: {
-    type: Object as PropType<{ [key: string]: any }>,
+    type: Object as PropType<Rules>,
   },
   inline: {
     type: Boolean,

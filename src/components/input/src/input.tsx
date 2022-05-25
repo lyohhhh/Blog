@@ -2,6 +2,7 @@ import { IconFont } from "@/components/components";
 import {
   computed,
   defineComponent,
+  inject,
   InputHTMLAttributes,
   ref,
   renderSlot,
@@ -22,6 +23,11 @@ export default defineComponent({
     const isShow = computed<boolean>(() => {
       return Boolean(props.modelValue) && Boolean(show.value);
     });
+    const formItem = inject<any>("formItemProvide");
+
+    const triggerFormItemValidate = () => {
+      formItem && formItem.emitter.emit("validate");
+    };
 
     // 渲染 尾部
     const renderPrefixIcon = () => {
@@ -56,6 +62,7 @@ export default defineComponent({
               <IconFont
                 onClick={() => {
                   emit("update:modelValue", "");
+                  triggerFormItemValidate();
                 }}
                 icon="roundclose"
                 class="absolute flex z-10 text-gray-300 right-0 top-0 h-full w-8  justify-center items-center cursor-pointer hover:text-gray-400 group-active:flex  dark:text-gray-400 dark:hover:text-gray-300"
@@ -83,6 +90,7 @@ export default defineComponent({
       (e: Event) => {
         const target = e.target as InputHTMLAttributes;
         emit("update:modelValue", target.value);
+        triggerFormItemValidate();
       },
       100,
       false
@@ -132,6 +140,7 @@ export default defineComponent({
       isFocus.value = false;
       // 调用 wrapperLeave 事件
       wrapperLeave();
+      triggerFormItemValidate();
     };
 
     return () => (
@@ -147,28 +156,7 @@ export default defineComponent({
         {renderPrefixIcon()}
         <input
           class={[
-            `input__inner 
-            outline-none 
-            bg-white 
-            block 
-            w-full 
-            rounded 
-            border 
-            px-4 
-            py-2 
-            text-sm 
-            hover:border-gray-400 
-            focus:border-themetextcolor-500 
-            placeholder-gray-300 
-            transition-all 
-            text-gray-600 
-            dark:bg-themebgcolor-800 
-            dark:border-themebgcolor-600 
-            caret-themebgcolor-400 
-            dark:text-gray-400 
-            dark:hover:border-themebgcolor-500 
-            dark:focus:border-themetextcolor-600 
-            dark:placeholder-gray-400`,
+            `input__inner outline-none bg-white block w-full rounded border px-4 py-2 text-sm hover:border-gray-400 focus:border-themetextcolor-500 placeholder-gray-300 transition-all text-gray-600 dark:bg-themebgcolor-800dark:border-themebgcolor-600 caret-themebgcolor-400 dark:text-gray-400 dark:hover:border-themebgcolor-500 dark:focus:border-themetextcolor-600 dark:placeholder-gray-400`,
             props.error && inputStyles["input__error"],
             (props.prefixIcon || slots.prefix) && "pl-8",
             (props.clearable || props.suffixIcon || slots.suffix) && "pr-8",
