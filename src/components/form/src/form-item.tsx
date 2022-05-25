@@ -103,7 +103,7 @@ const FormItem = defineComponent({
           <label
             {...renderLabelAttr()}
             class={[
-              "form-item__label flex text-gray-500 text-sm mb-1 justify-end items-center pr-3",
+              "form-item__label flex text-gray-500 text-sm mb-1 justify-end items-center pr-3 dark:text-gray-300",
               (props.required || isRequired) && itemStyles["is-required"],
             ]}
             style={{ width: props.labelWidth || "60px" }}

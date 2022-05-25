@@ -42,7 +42,7 @@ export const Layout = defineComponent({
       userName: [
         {
           required: true,
-          message: "请输入用户名",
+          message: "请输入账号",
           trigger: "blur",
         },
       ],
@@ -114,12 +114,16 @@ export const Layout = defineComponent({
                 model={this.loginForm}
               >
                 <FormItem label="账号" prop="userName">
-                  <Input v-model={this.loginForm.userName}></Input>
+                  <Input
+                    v-model={this.loginForm.userName}
+                    placeholder="请输入账号"
+                  ></Input>
                 </FormItem>
                 <FormItem label="密码" prop="password">
                   <Input
                     type="password"
                     v-model={this.loginForm.password}
+                    placeholder="请输入密码"
                   ></Input>
                 </FormItem>
               </Form>
