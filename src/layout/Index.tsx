@@ -12,6 +12,7 @@ import { useMode } from "@/hooks/useMode";
 import { useResize } from "@/hooks/useResize";
 import { Request } from "@/api";
 import {
+  Button,
   Dialog,
   Form,
   FormItem,
@@ -37,7 +38,6 @@ export const Layout = defineComponent({
       userName: "",
       password: "",
     });
-
     const rules = reactive({
       userName: [
         {
@@ -54,6 +54,13 @@ export const Layout = defineComponent({
         },
       ],
     });
+    const form = ref();
+
+    const submit = () => {
+      form.value.validate((valid: boolean) => {
+        console.log(valid);
+      });
+    };
 
     Request.get("/api/category", null).then(({ data }) => {
       category.push(...data);
@@ -74,6 +81,8 @@ export const Layout = defineComponent({
       testInput,
       loginForm,
       rules,
+      form,
+      submit,
     };
   },
   render() {
@@ -94,10 +103,16 @@ export const Layout = defineComponent({
           </RouterView>
         </div>
         <Dialog
+          center
           v-model={this.dialogVisible}
           v-slots={{
             default: () => (
-              <Form labelSuffix=":" rules={this.rules} model={this.loginForm}>
+              <Form
+                ref="form"
+                labelSuffix=":"
+                rules={this.rules}
+                model={this.loginForm}
+              >
                 <FormItem label="账号" prop="userName">
                   <Input v-model={this.loginForm.userName}></Input>
                 </FormItem>
@@ -108,6 +123,21 @@ export const Layout = defineComponent({
                   ></Input>
                 </FormItem>
               </Form>
+            ),
+            footer: () => (
+              <>
+                <Button
+                  type="default"
+                  onClick={() => {
+                    this.dialogVisible = false;
+                  }}
+                >
+                  取消
+                </Button>
+                <Button type="primary" onClick={this.submit}>
+                  提交
+                </Button>
+              </>
             ),
           }}
         ></Dialog>

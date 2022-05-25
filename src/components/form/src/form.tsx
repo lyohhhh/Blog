@@ -1,15 +1,9 @@
-import {
-  defineComponent,
-  onMounted,
-  provide,
-  ref,
-  renderSlot,
-  defineExpose,
-} from "vue";
+import { defineComponent, provide, ref, renderSlot } from "vue";
 import props from "./form-props";
 import { Validate, FormItem, key } from "./shared";
 import { emitter } from "@/components/[shared]/emitter";
 import formStyle from "../styles/form.module.scss";
+import { useExpose } from "@/hooks/useExpose";
 
 const Form = defineComponent({
   name: "Form",
@@ -19,6 +13,7 @@ const Form = defineComponent({
 
     const validate = (cb: Validate) => {
       const tasks = items.value.map((item) => item.validate());
+      console.log(tasks);
 
       Promise.all(tasks)
         .then(() => {
@@ -29,10 +24,8 @@ const Form = defineComponent({
         });
     };
 
-    onMounted(() => {
-      emitter.on("formItem", (item) => {
-        items.value.push(item);
-      });
+    emitter.on("formItem", (item) => {
+      items.value.push(item);
     });
     if (props.model) {
       provide(key, {
@@ -41,7 +34,7 @@ const Form = defineComponent({
       });
     }
 
-    defineExpose({
+    useExpose({
       validate,
     });
 

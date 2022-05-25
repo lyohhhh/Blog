@@ -4,7 +4,6 @@ import {
   onMounted,
   ref,
   renderSlot,
-  defineExpose,
   provide,
   toRefs,
   Transition,
@@ -14,8 +13,9 @@ import { default as FormItemProp } from "./form-item-props";
 import itemStyles from "../styles/formItem.module.scss";
 import { FormItem as FormItemType, key } from "./shared";
 import Schema from "async-validator";
-import { Events } from "@/components/[shared]/emitter";
+import { Events, emitter as emitBus } from "@/components/[shared]/emitter";
 import mitt from "mitt";
+import { useExpose } from "@/hooks/useExpose";
 
 const FormItem = defineComponent({
   name: "FormItem",
@@ -62,7 +62,7 @@ const FormItem = defineComponent({
       validate,
     };
 
-    defineExpose({
+    useExpose({
       params,
     });
 
@@ -71,7 +71,7 @@ const FormItem = defineComponent({
         emitter.on("validate", () => {
           validate();
         });
-        emitter.emit("formItem", params);
+        emitBus.emit("formItem", params);
       }
     });
 

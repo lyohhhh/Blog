@@ -40,6 +40,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    center: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["confirm", "cancel", "update:modelValue"],
   setup(props, { emit }) {
@@ -76,29 +80,36 @@ export default defineComponent({
                 : "content"}
             </div>
             <div class="dialog-footer p-4">
-              {this.$slots.footer ? (
-                renderSlot(this.$slots, "footer")
-              ) : (
-                <div class="flex justify-end items-center">
-                  {this.showCancel && (
+              <div
+                class={[
+                  "flex items-center",
+                  this.center ? "justify-center" : "justify-end",
+                ]}
+              >
+                {this.$slots.footer ? (
+                  renderSlot(this.$slots, "footer")
+                ) : (
+                  <>
+                    {this.showCancel && (
+                      <Button
+                        loading={this.cancelLoading}
+                        disabled={this.cancelDisabled}
+                        onClick={this.emitCancel}
+                      >
+                        取消
+                      </Button>
+                    )}
                     <Button
-                      loading={this.cancelLoading}
-                      disabled={this.cancelDisabled}
-                      onClick={this.emitCancel}
+                      loading={this.confirmLoading}
+                      disabled={this.confirmDisabled}
+                      onClick={this.emitConfirm}
+                      type="primary"
                     >
-                      取消
+                      确定
                     </Button>
-                  )}
-                  <Button
-                    loading={this.confirmLoading}
-                    disabled={this.confirmDisabled}
-                    onClick={this.emitConfirm}
-                    type="primary"
-                  >
-                    确定
-                  </Button>
-                </div>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         ) : null}
