@@ -1,10 +1,10 @@
 module.exports = {
-  rules: {
-    "at-rule-no-unknown": [
-      true,
-      {
-        ignoreAtRules: ["tailwind", "apply"],
-      },
-    ],
-  },
+	rules: {
+		'at-rule-no-unknown': [
+			true,
+			{
+				ignoreAtRules: ['tailwind', 'apply'],
+			},
+		],
+	},
 };

@@ -1,3 +1,3 @@
 declare interface TailWind {
-  dark: boolean;
+	dark: boolean;
 }

@@ -1,10 +1,10 @@
-import { h } from "vue";
+import { h } from 'vue';
 
 export default () =>
-  h(
-    "div",
-    {
-      class: ["flex justify-center"],
-    },
-    "404 NOT FOUND"
-  );
+	h(
+		'div',
+		{
+			class: ['flex justify-center'],
+		},
+		'404 NOT FOUND'
+	);

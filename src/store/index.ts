@@ -1,12 +1,12 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
-export const useGlobal = defineStore("Global", {
-  state() {
-    return {
-      user: null,
-    };
-  },
-  getters: {},
+export const useGlobal = defineStore('Global', {
+	state() {
+		return {
+			user: null,
+		};
+	},
+	getters: {},
 
-  actions: {},
+	actions: {},
 });

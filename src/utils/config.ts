@@ -1,7 +1,7 @@
-import { getCurrentInstance, ComponentInternalInstance } from "vue";
+import { getCurrentInstance, ComponentInternalInstance } from 'vue';
 type Element = {
-  size?: string;
-  zIndex?: number;
+	size?: string;
+	zIndex?: number;
 };
 
 /**
@@ -9,11 +9,11 @@ type Element = {
  * @returns { Element | null } 全局设置的配置项
  */
 const useGlobalConfig = function (): Element {
-  const instance: null | ComponentInternalInstance = getCurrentInstance();
-  if (!instance) {
-    console.log("未设置配置项");
-  }
-  return instance?.appContext.config.globalProperties.$Element || {};
+	const instance: null | ComponentInternalInstance = getCurrentInstance();
+	if (!instance) {
+		console.log('未设置配置项');
+	}
+	return instance?.appContext.config.globalProperties.$Element || {};
 };
 
 export { useGlobalConfig };
