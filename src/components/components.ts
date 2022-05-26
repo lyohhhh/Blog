@@ -11,3 +11,4 @@ export * from './skeleton';
 export * from './input';
 export * from './form';
 export * from './footer';
+export * from './scroll';

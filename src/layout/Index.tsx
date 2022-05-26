@@ -1,4 +1,4 @@
-import { computed, defineComponent, reactive, ref, KeepAlive, VNode } from 'vue';
+import { computed, defineComponent, reactive, ref, KeepAlive, VNode, provide } from 'vue';
 
 import { RouterView } from 'vue-router';
 import { useMode } from '@/hooks/useMode';
@@ -13,6 +13,7 @@ import {
 	IconFont,
 	Input,
 	Navbar,
+	Scroll,
 	Sidebar,
 } from '@/components/components';
 
@@ -49,7 +50,7 @@ export const Layout = defineComponent({
 			],
 		});
 		const form = ref();
-
+		const scroll = ref();
 		const submit = () => {
 			form.value.validate((valid: boolean) => {
 				console.log(valid);
@@ -64,6 +65,7 @@ export const Layout = defineComponent({
 			isCollapse.value = !isCollapse.value;
 		};
 
+		provide('scroll', ref(scroll));
 		return {
 			changeTailWindMode: tailwind.changeTailWindMode,
 			collapseHandle,
@@ -77,6 +79,7 @@ export const Layout = defineComponent({
 			rules,
 			form,
 			submit,
+			scroll,
 		};
 	},
 	render() {
@@ -89,14 +92,16 @@ export const Layout = defineComponent({
 				>
 					{renderHeaderMain.call(this)}
 				</header>
-				<div class='container m-auto mb-16 pt-20 pb-10 px-0 md:px-0 md:pt-24'>
-					<RouterView>
-						{(props: { Component: VNode }) => {
-							return <KeepAlive>{props.Component}</KeepAlive>;
-						}}
-					</RouterView>
+				<Scroll ref='scroll' class='mt-16 md:mt-16'>
+					<div class='container m-auto pt-4 pb-10 px-0 md:px-0  md:pt-8'>
+						<RouterView>
+							{(props: { Component: VNode }) => {
+								return <KeepAlive>{props.Component}</KeepAlive>;
+							}}
+						</RouterView>
+					</div>
 					<Footer></Footer>
-				</div>
+				</Scroll>
 				<Dialog
 					center
 					v-model={this.dialogVisible}
@@ -146,7 +151,7 @@ function renderHeaderMain(this: InstanceType<typeof Layout>) {
 			<div class='block sm:hidden cursor-pointer' onClick={this.collapseHandle}>
 				<IconFont icon='view_list-o' class='font-medium text-xl'></IconFont>
 			</div>
-			<span class='font-mono text-xl lg:text-2xl'>BLOG</span>
+			<span class='font-mono text-xl lg:text-2xl'>TTTT</span>
 
 			{renderBar.call(this)}
 		</div>

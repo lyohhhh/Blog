@@ -16,6 +16,7 @@ declare module 'vue' {
 		Form: typeof Components['Form'];
 		FormItem: typeof Components['FormItem'];
 		Footer: typeof Components['Footer'];
+		Scroll: typeof Components['Scroll'];
 		[key: string]: any;
 	}
 }

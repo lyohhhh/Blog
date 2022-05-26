@@ -1,7 +1,8 @@
-import { defineComponent, reactive, ref, toRefs } from 'vue';
+import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue';
 import { Props } from '@/components/list/src';
 import { Request } from '@/api';
 import { Skeleton, LoadingMore, List, RAside } from '@/components/components';
+import useScroll from '@/hooks/useScroll';
 
 interface LoadOpts {
 	loading: boolean;
@@ -12,6 +13,9 @@ interface LoadOpts {
 
 export default defineComponent({
 	setup() {
+		const scroll = useScroll();
+		console.log(scroll);
+
 		const list: Props[] = reactive([]);
 		const skeletonLoading = ref<boolean>(true);
 		const loadOpts = reactive<LoadOpts>({
@@ -34,8 +38,12 @@ export default defineComponent({
 				})
 				.finally(() => {
 					loadOpts.loading = false;
+					scroll && scroll.value.resetScroll();
 					setTimeout(() => {
 						skeletonLoading.value = false;
+						nextTick(() => {
+							scroll && scroll.value.resetScroll();
+						});
 					}, 1500);
 				});
 		};
