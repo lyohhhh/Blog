@@ -15,7 +15,7 @@ export class ScrollObserver<T extends Load> {
 	init() {
 		this.observer = new IntersectionObserver(this.callback.bind(this), {
 			root: this.opt.root,
-			rootMargin: '0px 0px -80px 0px ',
+			rootMargin: '0px 0px -140px 0px ',
 		});
 		this.handleObserver();
 	}

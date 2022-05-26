@@ -7,6 +7,7 @@ import { Request } from '@/api';
 import {
 	Button,
 	Dialog,
+	Footer,
 	Form,
 	FormItem,
 	IconFont,
@@ -22,7 +23,7 @@ export const Layout = defineComponent({
 		const isDark = computed(() => tailwind.mode.value == 1);
 		const category = reactive<Tree[]>([]);
 		const isCollapse = ref<boolean>(false);
-		const dialogVisible = ref<boolean>(true);
+		const dialogVisible = ref<boolean>(false);
 		const testInput = ref<string>('');
 		const loginForm = reactive<{
 			userName: string;
@@ -88,12 +89,13 @@ export const Layout = defineComponent({
 				>
 					{renderHeaderMain.call(this)}
 				</header>
-				<div class='container m-auto pt-20 pb-10 px-0 md:px-0 md:pt-24'>
+				<div class='container m-auto mb-16 pt-20 pb-10 px-0 md:px-0 md:pt-24'>
 					<RouterView>
 						{(props: { Component: VNode }) => {
 							return <KeepAlive>{props.Component}</KeepAlive>;
 						}}
 					</RouterView>
+					<Footer></Footer>
 				</div>
 				<Dialog
 					center
