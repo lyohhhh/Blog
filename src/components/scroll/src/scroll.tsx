@@ -1,7 +1,8 @@
+import { stopDefault } from '@/components/[shared]/mouse';
 import { useExpose } from '@/hooks/useExpose';
 import { throttle } from '@/utils';
-import { defineComponent, onMounted, reactive, renderSlot, toRefs } from 'vue';
-
+import { defineComponent, nextTick, onMounted, reactive, renderSlot, toRefs } from 'vue';
+import scrollStyles from '../styles/scroll.module.scss';
 export default defineComponent({
 	name: 'Scroll',
 	props: {
@@ -28,7 +29,8 @@ export default defineComponent({
 			wrapHeight: number;
 			mainHeight: number;
 			barThumbHeight: string;
-			scrollX: string;
+			scrollY: string;
+			maxScrollY: number;
 		}>({
 			wrap: undefined,
 			main: undefined,
@@ -37,7 +39,8 @@ export default defineComponent({
 			wrapHeight: 0,
 			mainHeight: 0,
 			barThumbHeight: '0%',
-			scrollX: '0',
+			scrollY: '0',
+			maxScrollY: 0,
 		});
 
 		onMounted(() => {
@@ -50,24 +53,56 @@ export default defineComponent({
 			scroll.mainHeight = main?.clientHeight || 0;
 			const rate = (scroll.wrapHeight / scroll.mainHeight) * 100;
 			scroll.barThumbHeight = `${rate >= 100 ? 0 : rate}%`;
+
+			nextTick(() => {
+				const { slotHeight, thumbHeight } = getValue();
+				if (thumbHeight != 0) {
+					scroll.maxScrollY = ((slotHeight - thumbHeight) / thumbHeight) * 100;
+				}
+			});
 		};
 
-		const scrollY = (top: number, dot = '%') => {
-			scroll.scrollX = `${top}${dot}`;
+		const setScrollY = (top: number, dot = '%') => {
+			scroll.scrollY = `${top}${dot}`;
+		};
+
+		const getValue = () => {
+			const { wrap, mainHeight, barSlot, barThumb } = scroll;
+			const scrollTop = wrap?.scrollTop || 0,
+				slotHeight = barSlot?.clientHeight || 0,
+				thumbHeight = barThumb?.clientHeight || 0;
+
+			return {
+				scrollTop,
+				slotHeight,
+				thumbHeight,
+				mainHeight,
+			};
 		};
 
 		const scrollEvent = throttle(
 			() => {
-				const { wrap, mainHeight, barSlot, barThumb } = scroll;
-				const scrollTop = wrap?.scrollTop || 0,
-					slotHeight = barSlot?.clientHeight || 0,
-					thumbHeight = barThumb?.clientHeight || 0;
+				const { scrollTop, mainHeight, slotHeight, thumbHeight } = getValue();
 				const scrollYVal = (((scrollTop / mainHeight) * slotHeight) / thumbHeight) * 100;
-				scrollY(scrollYVal);
+				setScrollY(scrollYVal);
 			},
 			60 / 1000,
 			true
 		);
+
+		const scrollToBySlot = (e: MouseEvent) => {
+			e.stopPropagation();
+			e.preventDefault();
+			const y = e.clientY;
+			const { thumbHeight, mainHeight, slotHeight } = getValue();
+			const barScrollTop = ((y - thumbHeight / 2) / thumbHeight) * 100;
+			setScrollY(
+				barScrollTop < 0 ? 0 : barScrollTop > scroll.maxScrollY ? scroll.maxScrollY : barScrollTop
+			);
+			if (scroll.wrap) {
+				scroll.wrap.scrollTo(0, (y / slotHeight) * mainHeight - scroll.wrap.clientHeight);
+			}
+		};
 
 		useExpose({
 			resetScroll,
@@ -76,6 +111,7 @@ export default defineComponent({
 		return {
 			...toRefs(scroll),
 			scrollEvent,
+			scrollToBySlot,
 		};
 	},
 	render() {
@@ -102,13 +138,18 @@ export default defineComponent({
 					<div
 						class='scroll-bar is-vertical absolute right-0.5 top-1 bottom-1 text-right'
 						ref='barSlot'
+						onClick={this.scrollToBySlot}
 					>
 						<div
-							class='scroll-bar__thumb rounded-md w-2 bg-gray-300 active:bg-gray-400 inline-block cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity dark:bg-gray-800 dark:active:bg-gray-900'
+							class={[
+								'scroll-bar__thumb rounded-md w-2 bg-gray-300 active:bg-gray-400 hover:bg-gray-400 inline-block cursor-pointer opacity-0 group-hover:opacity-100 dark:bg-gray-800 dark:active:bg-gray-900 dark:hover:bg-gray-900',
+								scrollStyles['transition'],
+							]}
 							ref='barThumb'
+							onClick={stopDefault}
 							style={{
 								height: this.barThumbHeight,
-								transform: `translateY(${this.scrollX})`,
+								transform: `translateY(${this.scrollY})`,
 							}}
 						></div>
 					</div>
