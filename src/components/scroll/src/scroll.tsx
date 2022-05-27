@@ -1,7 +1,7 @@
 import { stopDefault } from '@/components/[shared]/mouse';
 import { useExpose } from '@/hooks/useExpose';
 import { throttle } from '@/utils';
-import { defineComponent, nextTick, onMounted, reactive, renderSlot, toRefs } from 'vue';
+import { defineComponent, nextTick, onMounted, reactive, ref, renderSlot, toRefs } from 'vue';
 import scrollStyles from '../styles/scroll.module.scss';
 export default defineComponent({
 	name: 'Scroll',
@@ -21,6 +21,7 @@ export default defineComponent({
 	},
 
 	setup() {
+		const isMove = ref<boolean>(false);
 		const scroll = reactive<{
 			wrap: undefined | HTMLElement;
 			main: undefined | HTMLElement;
@@ -31,6 +32,7 @@ export default defineComponent({
 			barThumbHeight: string;
 			scrollY: string;
 			maxScrollY: number;
+			startY: number;
 		}>({
 			wrap: undefined,
 			main: undefined,
@@ -41,6 +43,7 @@ export default defineComponent({
 			barThumbHeight: '0%',
 			scrollY: '0',
 			maxScrollY: 0,
+			startY: 0,
 		});
 
 		onMounted(() => {
@@ -104,6 +107,49 @@ export default defineComponent({
 			}
 		};
 
+		const setStartY = (e: MouseEvent) => {
+			const scrollY = +scroll.scrollY.replace('%', '') / 100 || 0;
+			const { thumbHeight } = getValue();
+			scroll.startY = e.clientY - scrollY * thumbHeight;
+			setMoveStatus(true);
+		};
+
+		const setMoveStatus = (move: boolean) => {
+			isMove.value = move;
+			if (isMove.value) {
+				window.addEventListener('mousemove', moveByMouse);
+				window.addEventListener('mouseup', () => {
+					isMove.value = false;
+					window.removeEventListener('mousemove', moveByMouse);
+				});
+			}
+		};
+		const moveByMouse = throttle(
+			(e: MouseEvent) => {
+				if (!isMove.value) return;
+				stopDefault(e);
+				const { startY, barSlot } = scroll;
+				const { thumbHeight } = getValue();
+				const scrollYVal = (e.clientY - startY) / thumbHeight;
+
+				setScrollY(
+					scrollYVal < 0
+						? 0
+						: scrollYVal * 100 + scrollY > scroll.maxScrollY
+						? scroll.maxScrollY
+						: scrollYVal * 100 + scrollY
+				);
+				if (scroll.wrap) {
+					scroll.wrap.scrollTo(
+						0,
+						((scrollYVal * thumbHeight) / (barSlot?.clientHeight || 0)) *
+							(scroll.main?.clientHeight || 0)
+					);
+				}
+			},
+			60 / 1000,
+			true
+		);
 		useExpose({
 			resetScroll,
 		});
@@ -112,13 +158,17 @@ export default defineComponent({
 			...toRefs(scroll),
 			scrollEvent,
 			scrollToBySlot,
+			setMoveStatus,
+			moveByMouse,
+			setStartY,
+			isMove,
 		};
 	},
 	render() {
 		const props = this.$props;
 		return (
 			<>
-				<div class={['scroll-wrapper relative']}>
+				<div class={['scroll-wrapper relative', this.isMove && 'select-none']}>
 					<div
 						class={['scroll-main w-full overflow-auto', props.class]}
 						ref='wrap'
@@ -147,6 +197,9 @@ export default defineComponent({
 							]}
 							ref='barThumb'
 							onClick={stopDefault}
+							onMousedown={this.setStartY}
+							onMouseup={this.setMoveStatus.bind(this, false)}
+							// onMousemove={this.moveByMouse}
 							style={{
 								height: this.barThumbHeight,
 								transform: `translateY(${this.scrollY})`,
