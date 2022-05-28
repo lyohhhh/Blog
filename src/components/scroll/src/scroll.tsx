@@ -288,7 +288,7 @@ export default defineComponent({
 					<div
 						class={['scroll-main w-full overflow-auto', props.class]}
 						ref='wrap'
-						style={{ height: `calc(100vh - 128px)` }}
+						style={{ height: props.height }}
 						onScroll={this.scrollEvent}
 					>
 						<div class='scroll-main__view' ref='main'>
