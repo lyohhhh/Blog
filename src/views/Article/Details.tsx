@@ -1,9 +1,22 @@
 import { Request } from '@/api';
 import { Skeleton } from '@/components/components';
-import { defineComponent, onActivated, ref } from 'vue';
+import {
+	ComponentInternalInstance,
+	defineComponent,
+	getCurrentInstance,
+	nextTick,
+	onActivated,
+	ref,
+} from 'vue';
 import { useRoute } from 'vue-router';
+import scrollMixins from '@/mixins/scroll';
+
 export default defineComponent({
+	mixins: [scrollMixins],
 	setup() {
+		const { proxy } = getCurrentInstance() as ComponentInternalInstance as {
+			[key: string]: any;
+		};
 		const route = useRoute();
 		const details = ref<{
 			title: string;
@@ -12,8 +25,9 @@ export default defineComponent({
 			author: string;
 		}>();
 		const loading = ref<boolean>(true);
-
 		onActivated(() => {
+			proxy.scrollTo(0, 0);
+			proxy.resetScroll();
 			const id = ref<string>(route.params.id as string);
 			loading.value = true;
 			Request.get('/api/details', {
@@ -25,6 +39,7 @@ export default defineComponent({
 				.finally(() => {
 					setTimeout(() => {
 						loading.value = false;
+						proxy.resetScroll();
 					}, 1500);
 				});
 		});

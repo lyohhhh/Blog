@@ -1,7 +1,16 @@
 import { stopDefault } from '@/components/[shared]/mouse';
 import { useExpose } from '@/hooks/useExpose';
 import { throttle } from '@/utils';
-import { defineComponent, nextTick, onMounted, reactive, ref, renderSlot, toRefs } from 'vue';
+import {
+	computed,
+	defineComponent,
+	nextTick,
+	onMounted,
+	reactive,
+	ref,
+	renderSlot,
+	toRefs,
+} from 'vue';
 import scrollStyles from '../styles/scroll.module.scss';
 export default defineComponent({
 	name: 'Scroll',
@@ -55,6 +64,13 @@ export default defineComponent({
 			resetScroll();
 		});
 
+		const getScroll = () => {
+			const { wrap } = scroll;
+			return {
+				x: 0,
+				y: wrap?.scrollTop,
+			};
+		};
 		/**
 		 * 重置 scroll
 		 * scroll view 高度变化
@@ -312,6 +328,7 @@ export default defineComponent({
 		useExpose({
 			resetScroll,
 			scrollTo,
+			getScroll,
 		});
 
 		return {

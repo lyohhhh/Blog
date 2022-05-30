@@ -40,7 +40,7 @@ export default [
 				code: 200,
 				data: {
 					title: '@cword(3,50)',
-					content: '@cword(300,1000)',
+					content: '@cword(3000,10000)',
 					time: '@date(yyyy-MM-dd)',
 					author: '@cname',
 				},

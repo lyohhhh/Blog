@@ -1,9 +1,17 @@
-import { defineComponent, reactive, ref, toRefs, nextTick } from 'vue';
+import {
+	defineComponent,
+	reactive,
+	ref,
+	toRefs,
+	onActivated,
+	getCurrentInstance,
+	ComponentInternalInstance,
+} from 'vue';
 import { Props } from '@/components/list/src';
 import { Request } from '@/api';
 import { Skeleton, LoadingMore, List, RAside } from '@/components/components';
-import useScroll from '@/hooks/useScroll';
-
+import { onBeforeRouteLeave } from 'vue-router';
+import scrollMixins from '@/mixins/scroll';
 interface LoadOpts {
 	loading: boolean;
 	finished: boolean;
@@ -12,9 +20,27 @@ interface LoadOpts {
 }
 
 export default defineComponent({
+	mixins: [scrollMixins],
 	setup() {
-		const scroll = useScroll();
-		console.log(scroll);
+		const { proxy } = getCurrentInstance() as ComponentInternalInstance as {
+			[key: string]: any;
+		};
+
+		const scrollValue = ref<{
+			x: number;
+			y: number;
+		}>({
+			x: 0,
+			y: 0,
+		});
+		onActivated(() => {
+			proxy.resetScroll();
+			proxy.scrollTo(scrollValue.value.x, scrollValue.value.y);
+		});
+
+		onBeforeRouteLeave(() => {
+			scrollValue.value = proxy.getScroll();
+		});
 
 		const list: Props[] = reactive([]);
 		const skeletonLoading = ref<boolean>(true);
@@ -38,12 +64,10 @@ export default defineComponent({
 				})
 				.finally(() => {
 					loadOpts.loading = false;
-					scroll && scroll.value.resetScroll();
+					proxy.resetScroll();
 					setTimeout(() => {
 						skeletonLoading.value = false;
-						nextTick(() => {
-							scroll && scroll.value.resetScroll();
-						});
+						proxy.resetScroll();
 					}, 1500);
 				});
 		};
