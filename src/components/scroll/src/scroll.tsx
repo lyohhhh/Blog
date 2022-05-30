@@ -121,20 +121,26 @@ export default defineComponent({
 			};
 		};
 
+		const computedScrollYBySlot = (): number => {
+			// 获取到需要的参数
+			const { scrollTop, mainHeight, slotHeight, thumbHeight } = getValue();
+			/**
+			 * 计算滚动条滚动高度
+			 * ( 可见容器的滚动高度 / 页面高度) * 滚动槽高度 / 滚动条高度 * 100
+			 * -> 百分比
+			 */
+			const scrollYVal = (((scrollTop / mainHeight) * slotHeight) / thumbHeight) * 100;
+
+			return scrollYVal;
+		};
+
 		/**
 		 * 页面滚动事件
 		 * 通过节流函数优化 60HZ
 		 */
 		const scrollEvent = throttle(
 			() => {
-				// 获取到需要的参数
-				const { scrollTop, mainHeight, slotHeight, thumbHeight } = getValue();
-				/**
-				 * 计算滚动条滚动高度
-				 * ( 可见容器的滚动高度 / 页面高度) * 滚动槽高度 / 滚动条高度 * 100
-				 * -> 百分比
-				 */
-				const scrollYVal = (((scrollTop / mainHeight) * slotHeight) / thumbHeight) * 100;
+				const scrollYVal = computedScrollYBySlot();
 				/**
 				 * 调用函数 设置 translate
 				 */
@@ -262,12 +268,50 @@ export default defineComponent({
 			true
 		);
 
+		const getScrollTopByPercentage = (percentage: number): number => {
+			const { mainHeight, wrapHeight } = scroll;
+			const scrollTop = (percentage / 100) * mainHeight - wrapHeight / 2;
+			return scrollTop;
+		};
+		function scrollTo(x: number, y: number): void;
+		function scrollTo(x: string, y: string): void;
+		function scrollTo(x: any, y: any) {
+			if (typeof x === 'string' && typeof y === 'string') {
+				try {
+					if (!y.includes('%') && +y) {
+						console.warn('The number defaults to percentages');
+					}
+					const dot = +y.replace(/%/g, '');
+					if (isNaN(dot)) {
+						throw new Error('Y must be a percentage if it is string');
+					} else {
+						const scrollTop = getScrollTopByPercentage(dot);
+						/**
+						 * 调用函数 设置 translate
+						 */
+						setScrollY(dot);
+						scroll.wrap?.scrollTo(+x, scrollTop);
+					}
+				} catch (e: unknown extends Error ? Error : any) {
+					console.error(e.message);
+				}
+			} else {
+				scroll.wrap?.scrollTo(x, y);
+				const scrollYVal = computedScrollYBySlot();
+				/**
+				 * 调用函数 设置 translate
+				 */
+				setScrollY(scrollYVal);
+			}
+		}
+
 		/**
 		 * Vue3
 		 * 暴露方法
 		 */
 		useExpose({
 			resetScroll,
+			scrollTo,
 		});
 
 		return {
