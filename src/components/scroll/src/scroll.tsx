@@ -64,6 +64,10 @@ export default defineComponent({
 			resetScroll();
 		});
 
+		/**
+		 * @description 获取当前页面滚动的距离
+		 * @returns { x: number, y: number} x轴， y轴
+		 */
 		const getScroll = () => {
 			const { wrap } = scroll;
 			return {
@@ -283,12 +287,23 @@ export default defineComponent({
 			60 / 1000,
 			true
 		);
-
+		/**
+		 * @description 根据百分比 获取应该滚动多少 px
+		 * @returns { scrollTop } 滚动多少位置 px
+		 */
 		const getScrollTopByPercentage = (percentage: number): number => {
 			const { mainHeight, wrapHeight } = scroll;
+			/**
+			 * 需要将可视窗口减去
+			 */
 			const scrollTop = (percentage / 100) * mainHeight - wrapHeight / 2;
 			return scrollTop;
 		};
+
+		/**
+		 * 滚动页面的位置 同 Event ScrollTop
+		 * 滚动滚动条 与 页面主体内容
+		 */
 		function scrollTo(x: number, y: number): void;
 		function scrollTo(x: string, y: string): void;
 		function scrollTo(x: any, y: any) {
@@ -302,9 +317,6 @@ export default defineComponent({
 						throw new Error('Y must be a percentage if it is string');
 					} else {
 						const scrollTop = getScrollTopByPercentage(dot);
-						/**
-						 * 调用函数 设置 translate
-						 */
 						setScrollY(dot);
 						scroll.wrap?.scrollTo(+x, scrollTop);
 					}
