@@ -4,7 +4,6 @@ import {
 	ComponentInternalInstance,
 	defineComponent,
 	getCurrentInstance,
-	nextTick,
 	onActivated,
 	ref,
 } from 'vue';
