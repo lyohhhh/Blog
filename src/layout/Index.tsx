@@ -26,7 +26,7 @@ export const Layout = defineComponent({
 		const isCollapse = ref<boolean>(false);
 		const dialogVisible = ref<boolean>(true);
 		const testInput = ref<string>('');
-		const saveLoading = ref<boolean>(true);
+		const saveLoading = ref<boolean>(false);
 		const loginForm = reactive<{
 			userName: string;
 			password: string;
@@ -53,9 +53,13 @@ export const Layout = defineComponent({
 		const form = ref();
 		const scroll = ref();
 		const submit = () => {
-			form.value.validate((valid: boolean) => {
-				console.log(valid);
-			});
+			saveLoading.value = true;
+			setTimeout(() => {
+				form.value.validate((valid: boolean) => {
+					console.log(valid);
+					saveLoading.value = false;
+				});
+			}, 1000);
 		};
 
 		Request.get('/api/category', null).then(({ data }) => {
