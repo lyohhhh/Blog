@@ -24,8 +24,9 @@ export const Layout = defineComponent({
 		const isDark = computed(() => tailwind.mode.value == 1);
 		const category = reactive<Tree[]>([]);
 		const isCollapse = ref<boolean>(false);
-		const dialogVisible = ref<boolean>(false);
+		const dialogVisible = ref<boolean>(true);
 		const testInput = ref<string>('');
+		const saveLoading = ref<boolean>(false);
 		const loginForm = reactive<{
 			userName: string;
 			password: string;
@@ -80,6 +81,7 @@ export const Layout = defineComponent({
 			form,
 			submit,
 			scroll,
+			saveLoading,
 		};
 	},
 	render() {
@@ -130,7 +132,7 @@ export const Layout = defineComponent({
 								>
 									取消
 								</Button>
-								<Button type='primary' onClick={this.submit}>
+								<Button type='primary' onClick={this.submit} loading={this.saveLoading}>
 									提交
 								</Button>
 							</>
