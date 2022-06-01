@@ -91,13 +91,24 @@
       opacity-70
       border-opacity-70;
 		}
+		&.is-loading {
+			@apply border-themetextcolor-200 
+			border-opacity-30;
+
+			&:active {
+				@apply bg-themetextcolor-500;
+			}
+			&:hover {
+				@apply opacity-70 border-opacity-70;
+			}
+		}
 	}
 
 	&.is-loading {
 		@apply relative 
-    cursor-auto 
     overflow-hidden
-    pointer-events-none;
+    cursor-not-allowed  
+		opacity-70;
 
 		i {
 			@apply ml-1 
@@ -106,6 +117,9 @@
       animate-spin;
 		}
 
+		&:active {
+			@apply pointer-events-none;
+		}
 		&::after {
 			@apply absolute 
       -top-1 

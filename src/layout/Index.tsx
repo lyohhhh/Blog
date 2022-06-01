@@ -26,7 +26,7 @@ export const Layout = defineComponent({
 		const isCollapse = ref<boolean>(false);
 		const dialogVisible = ref<boolean>(true);
 		const testInput = ref<string>('');
-		const saveLoading = ref<boolean>(false);
+		const saveLoading = ref<boolean>(true);
 		const loginForm = reactive<{
 			userName: string;
 			password: string;
