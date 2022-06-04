@@ -13,8 +13,6 @@ const Form = defineComponent({
 
 		const validate = (cb: Validate) => {
 			const tasks = items.value.map(item => item.validate());
-			console.log(tasks);
-
 			Promise.all(tasks)
 				.then(() => {
 					cb(true);
