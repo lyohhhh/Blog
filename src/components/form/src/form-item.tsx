@@ -35,6 +35,8 @@ const FormItem = defineComponent({
 		}
 
 		// debugger;
+		// 通过 async-validator 进行效验
+		// 并将该方法监听 通过 emitter
 		const validate = () => {
 			if (formProp?.rules === undefined) {
 				return Promise.resolve({ result: true });
