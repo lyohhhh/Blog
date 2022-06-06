@@ -37,6 +37,9 @@ export default defineComponent({
 	},
 	emits: ['click'],
 	setup(props, { emit }) {
+		/**
+		 * 通过 props 计算统一样式
+		 */
 		const buttonClass = computed(() => {
 			const classByProps: string[] = [];
 			classByProps.push(`button--${props.type}`);
@@ -47,6 +50,9 @@ export default defineComponent({
 			return classByProps.join(' ');
 		});
 
+		/**
+		 * 绑定 Click 事件， 将参数传递
+		 */
 		const emitClick = (...args: any[]) => {
 			if (props.loading || props.disabled) return;
 			emit('click', args);
@@ -60,6 +66,7 @@ export default defineComponent({
 			<button class={['button', this.buttonClass]} onClick={this.emitClick}>
 				<span>
 					{renderSlot(this.$slots, 'default')}
+					{/* 判断是否是loading */}
 					{props.loading && <IconFont icon='loading'></IconFont>}
 				</span>
 			</button>
