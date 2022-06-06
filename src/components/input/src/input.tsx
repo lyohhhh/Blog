@@ -23,8 +23,9 @@ export default defineComponent({
 		const isShow = computed<boolean>(() => {
 			return Boolean(props.modelValue) && Boolean(show.value);
 		});
+		// 注入 form item
 		const formItem = inject<any>('formItemProvide');
-
+		// 触发 form item 的效验方法
 		const triggerFormItemValidate = () => {
 			formItem && formItem.emitter.emit('validate');
 		};
