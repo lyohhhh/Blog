@@ -11,6 +11,9 @@ const Form = defineComponent({
 	setup(props, { slots }) {
 		const items = ref<FormItem[]>([]);
 
+		/**
+		 * 对每个 item 进行效验
+		 */
 		const validate = (cb: Validate) => {
 			const tasks = items.value.map(item => item.validate());
 			Promise.all(tasks)
@@ -21,17 +24,22 @@ const Form = defineComponent({
 					cb(false);
 				});
 		};
-
+		// 监听 formItem 事件
+		// 将当前 formItem 添加到数组中
+		// 通过 validate 对每个 item 进行 效验
 		emitter.on('formItem', item => {
 			items.value.push(item);
 		});
 		if (props.model) {
+			// 注入当前的绑定的数据
+			// 以及当前的规则
 			provide(key, {
 				model: props.model,
 				rules: props.rules,
 			});
 		}
 
+		// 暴露验证方法
 		useExpose({
 			validate,
 		});

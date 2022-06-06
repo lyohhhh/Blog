@@ -27,6 +27,7 @@ const FormItem = defineComponent({
 		const emitter = mitt<Events>();
 		const isRequired = ref<boolean>(false);
 
+		// 遍历判断是否 required 添加样式
 		for (const rule in props.rules) {
 			if (props.rules[rule]?.required) {
 				isRequired.value = !!props.rules?.required;
@@ -41,14 +42,18 @@ const FormItem = defineComponent({
 			if (formProp?.rules === undefined) {
 				return Promise.resolve({ result: true });
 			}
+			// 获取当前 item 的 prop
 			const prop = props.prop as string;
+			// 获取当前 item 的 rule
 			const rule = formProp.rules[prop];
+			// 如果没有 rule 的话 直接返回成功
 			if (!rule) {
 				return Promise.resolve({ result: true });
 			}
 			const value = formProp.model[prop];
+			// 通过第三方注入
 			const schema = new Schema({ [prop]: rule });
-
+			// 通过第三方进行验证
 			return schema.validate({ [prop]: value }, err => {
 				if (err) {
 					isError.value = true;
@@ -64,15 +69,21 @@ const FormItem = defineComponent({
 			validate,
 		};
 
+		// 暴露方法 及 validaterItem
 		useExpose({
 			params,
 		});
 
 		onMounted(() => {
 			if (props.prop) {
+				// 监听 validate 事件
+				// 在 input 组件中触发
 				emitter.on('validate', () => {
 					validate();
 				});
+				// 发送 formItem 事件
+				// form 监听该事件
+				// 完成进入数组
 				emitBus.emit('formItem', params);
 			}
 		});
@@ -83,6 +94,7 @@ const FormItem = defineComponent({
 			validate,
 		});
 
+		// 通过 provide 注入 当前组件的 props 及方法
 		provide('formItemProvide', formItemProvide);
 
 		// label 属性
