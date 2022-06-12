@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } f
 import { getAccessToken } from './auth';
 
 const request: AxiosInstance = axios.create({
-	baseURL: 'http://192.168.0.101:3000/',
+	baseURL: 'http://192.168.10.171:3000/',
 	timeout: 20000,
 });
 
